@@ -1,102 +1,153 @@
-// ============================
-// 🔧 Firebase Configuración
-// ============================
+// Tu configuración Firebase aquí (reemplaza con la tuya)
 const firebaseConfig = {
   apiKey: "TU_API_KEY",
-  authDomain: "TU_DOMINIO.firebaseapp.com",
-  projectId: "TU_ID",
-  appId: "TU_APP_ID"
+  authDomain: "TU_AUTH_DOMAIN",
+  // resto de la config ...
 };
 
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 
-function signInWithGoogle() {
-  const provider = new firebase.auth.GoogleAuthProvider();
-  auth.signInWithPopup(provider)
-    .then(result => {
-      alert("Bienvenido, " + result.user.displayName);
-    })
-    .catch(error => {
-      alert("Error al iniciar sesión: " + error.message);
-    });
-}
-
-// ============================
-// 🛒 Productos y Carrito
-// ============================
 const products = [
-  { name: "Sofá Azul", price: 320, img: "https://via.placeholder.com/200x150" },
-  { name: "Mesa Moderna", price: 150, img: "https://via.placeholder.com/200x150" },
-  { name: "Lámpara LED", price: 60, img: "https://via.placeholder.com/200x150" }
+  {
+    id: 1,
+    name: "Sofá Moderno",
+    price: 450,
+    description: "Cómodo sofá para sala de estar.",
+    image: "https://images.unsplash.com/photo-1567016549945-54b070d26b55?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    id: 2,
+    name: "Mesa de Comedor",
+    price: 300,
+    description: "Mesa elegante de madera.",
+    image: "https://images.unsplash.com/photo-1549187774-b4e9b0445b9b?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    id: 3,
+    name: "Lámpara de Techo",
+    price: 120,
+    description: "Lámpara moderna para iluminar.",
+    image: "https://images.unsplash.com/photo-1493666438817-866a91353ca9?auto=format&fit=crop&w=400&q=80"
+  }
 ];
 
-let cart = [];
-const cartCountEl = document.getElementById("cart-count");
+const productList = document.getElementById("product-list");
 const cartItemsEl = document.getElementById("cart-items");
 const cartTotalEl = document.getElementById("cart-total");
+const cartCountEl = document.getElementById("cart-count");
+const cartEl = document.getElementById("cart");
+const menuEl = document.getElementById("menu");
+const loginBtn = document.getElementById("login-btn");
 
-function toggleMenu() {
-  const menu = document.getElementById("menu");
-  menu.style.display = menu.style.display === "flex" ? "none" : "flex";
-}
+let cart = [];
 
-function toggleCart() {
-  const cartEl = document.getElementById("cart");
-  cartEl.style.display = cartEl.style.display === "block" ? "none" : "block";
-}
-
+// Renderiza productos en la página
 function renderProducts() {
-  const productList = document.getElementById("product-list");
-  products.forEach((p, index) => {
+  productList.innerHTML = "";
+  products.forEach(product => {
     const div = document.createElement("div");
-    div.className = "product-card";
+    div.className = "product";
     div.innerHTML = `
-      <img src="${p.img}" alt="${p.name}" width="100%" />
-      <h3>${p.name}</h3>
-      <p>$${p.price}</p>
-      <button onclick="addToCart(${index})">Agregar</button>
+      <img src="${product.image}" alt="${product.name}" />
+      <h3>${product.name}</h3>
+      <p>${product.description}</p>
+      <p><strong>$${product.price}</strong></p>
+      <button onclick="addToCart(${product.id})">Agregar al carrito</button>
     `;
     productList.appendChild(div);
   });
 }
 
-function addToCart(index) {
-  cart.push(products[index]);
+// Agregar producto al carrito
+function addToCart(id) {
+  const product = products.find(p => p.id === id);
+  const item = cart.find(i => i.id === id);
+
+  if (item) {
+    item.quantity++;
+  } else {
+    cart.push({...product, quantity: 1});
+  }
   updateCart();
 }
 
+// Eliminar producto del carrito
+function removeFromCart(id) {
+  cart = cart.filter(item => item.id !== id);
+  updateCart();
+}
+
+// Actualiza carrito y contador
 function updateCart() {
   cartItemsEl.innerHTML = "";
   let total = 0;
-  cart.forEach((item, i) => {
+  let count = 0;
+  cart.forEach(item => {
+    total += item.price * item.quantity;
+    count += item.quantity;
     const li = document.createElement("li");
-    li.textContent = `${item.name} - $${item.price}`;
-    const btn = document.createElement("button");
-    btn.textContent = "Eliminar";
-    btn.onclick = () => removeFromCart(i);
-    li.appendChild(btn);
+    li.innerHTML = `
+      ${item.name} x${item.quantity} - $${item.price * item.quantity}
+      <button onclick="removeFromCart(${item.id})">Eliminar</button>
+    `;
     cartItemsEl.appendChild(li);
-    total += item.price;
   });
-  cartTotalEl.textContent = total;
-  cartCountEl.textContent = cart.length;
-}
+  cartTotalEl.textContent = total.toFixed(2);
+  cartCountEl.textContent = count;
 
-function removeFromCart(index) {
-  cart.splice(index, 1);
-  updateCart();
-}
-
-function checkout() {
   if (cart.length === 0) {
-    alert("Tu carrito está vacío.");
+    cartEl.classList.add("hidden");
+  }
+}
+
+// Mostrar / ocultar carrito
+function toggleCart() {
+  cartEl.classList.toggle("hidden");
+}
+
+// Mostrar / ocultar menú
+function toggleMenu() {
+  menuEl.classList.toggle("hidden");
+}
+
+// Checkout (pago simulado)
+function checkout() {
+  if(cart.length === 0) {
+    alert("El carrito está vacío.");
     return;
   }
-  alert("Gracias por tu compra.");
+  alert(`Gracias por tu compra. Total a pagar: $${cartTotalEl.textContent}`);
   cart = [];
   updateCart();
+  cartEl.classList.add("hidden");
 }
 
-// Inicializa productos
+// Iniciar sesión con Google
+function signInWithGoogle() {
+  const provider = new firebase.auth.GoogleAuthProvider();
+  auth.signInWithPopup(provider)
+    .then(result => {
+      const user = result.user;
+      alert(`Hola ${user.displayName}, sesión iniciada.`);
+      loginBtn.textContent = "Cerrar sesión";
+      loginBtn.onclick = signOut;
+    })
+    .catch(error => {
+      console.error(error);
+      alert("Error al iniciar sesión.");
+    });
+}
+
+// Cerrar sesión
+function signOut() {
+  auth.signOut().then(() => {
+    alert("Sesión cerrada.");
+    loginBtn.textContent = "Iniciar Sesión con Google";
+    loginBtn.onclick = signInWithGoogle;
+  });
+}
+
+// Inicializar
 renderProducts();
+updateCart();
