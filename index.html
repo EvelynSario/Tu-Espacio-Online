@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tu Espacio Online</title>
+  <link rel="stylesheet" href="styles.css" />
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+</head>
+<body>
+  <header>
+    <div class="logo">Tu Espacio Online</div>
+    <button class="hamburger" aria-label="Menú" onclick="toggleMenu()">☰</button>
+    <nav id="menu" class="hidden">
+      <a href="#productos">Productos</a>
+      <a href="#mision">Misión y Visión</a>
+      <a href="#privacidad">Privacidad</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+    <div class="actions">
+      <button id="login-btn" onclick="signInWithGoogle()">Iniciar Sesión con Google</button>
+      <button aria-label="Carrito" onclick="toggleCart()">🛒 <span id="cart-count">0</span></button>
+    </div>
+  </header>
+
+  <main>
+    <section id="productos">
+      <h1>Productos Destacados</h1>
+      <div class="product-list" id="product-list">
+        <!-- Productos generados por JS -->
+      </div>
+    </section>
+
+    <section id="mision">
+      <h2>Misión y Visión</h2>
+      <p><strong>Misión:</strong> Ofrecer productos de calidad y estilo.</p>
+      <p><strong>Visión:</strong> Ser líderes en decoración online.</p>
+    </section>
+
+    <section id="privacidad">
+      <h2>Políticas de Privacidad</h2>
+      <p>No compartimos tu información personal con terceros.</p>
+    </section>
+
+    <section id="contacto">
+      <h2>Contacto</h2>
+      <p>Email: contacto@tuespacioonline.com</p>
+    </section>
+  </main>
+
+  <div id="cart" class="cart hidden">
+    <h3>Carrito</h3>
+    <ul id="cart-items"></ul>
+    <p>Total: $<span id="cart-total">0</span></p>
+    <button onclick="checkout()">Pagar</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
