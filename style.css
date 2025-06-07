@@ -1,0 +1,119 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f4f6f8;
+  color: #000;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #002f4b;
+  color: white;
+  padding: 10px 20px;
+}
+
+.logo {
+  font-size: 1.5em;
+}
+
+nav {
+  display: none;
+  flex-direction: column;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  margin: 5px 0;
+}
+
+.hamburger {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.actions button {
+  background-color: #0074D9;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+main {
+  padding: 20px;
+}
+
+section {
+  margin-bottom: 40px;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  max-width: 300px;
+  border-radius: 5px;
+}
+
+.modal input {
+  display: block;
+  margin: 10px 0;
+  width: 100%;
+  padding: 8px;
+}
+
+.close {
+  float: right;
+  cursor: pointer;
+}
+
+.cart {
+  position: fixed;
+  top: 60px;
+  right: 10px;
+  background: white;
+  border: 1px solid #ccc;
+  padding: 15px;
+  display: none;
+  width: 250px;
+}
+
+.cart ul {
+  list-style: none;
+  padding: 0;
+}
+
+.cart li {
+  margin-bottom: 10px;
+}
+
+@media (min-width: 600px) {
+  nav {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .hamburger {
+    display: none;
+  }
+
+  nav a {
+    margin: 0 10px;
+  }
+}
