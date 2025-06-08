@@ -2,17 +2,16 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Tu Espacio Online</title>
   <link rel="stylesheet" href="styles.css" />
-  <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
 </head>
 <body>
   <header>
     <div class="logo">Tu Espacio Online</div>
-    <button class="hamburger" aria-label="Menú" onclick="toggleMenu()">☰</button>
+    <button class="hamburger" onclick="toggleMenu()">☰</button>
     <nav id="menu" class="hidden">
       <a href="#productos">Productos</a>
       <a href="#mision">Misión y Visión</a>
@@ -21,7 +20,7 @@
     </nav>
     <div class="actions">
       <button id="login-btn" onclick="signInWithGoogle()">Iniciar Sesión con Google</button>
-      <button aria-label="Carrito" onclick="toggleCart()">🛒 <span id="cart-count">0</span></button>
+      <button onclick="toggleCart()">🛒 <span id="cart-count">0</span></button>
     </div>
   </header>
 
@@ -29,7 +28,7 @@
     <section id="productos">
       <h1>Productos Destacados</h1>
       <div class="product-list" id="product-list">
-        <!-- Productos generados por JS -->
+        <!-- Productos generados con JS -->
       </div>
     </section>
 
