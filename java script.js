@@ -1,7 +1,12 @@
 // Tu configuración Firebase aquí (reemplaza con la tuya)
 const firebaseConfig = {
-  apiKey: "TU_API_KEY",
-  authDomain: "TU_AUTH_DOMAIN",
+    apiKey: "AIzaSyBhIzR8YAM2QHYXFEHHQDiQkM4kSf-w2E4",
+    authDomain: "tu-espacio-online.firebaseapp.com",
+    projectId: "tu-espacio-online",
+    storageBucket: "tu-espacio-online.firebasestorage.app",
+    messagingSenderId: "74908938191",
+    appId: "1:74908938191:web:d0e78ba481550cff12ecba"
+  };
   // resto de la config ...
 };
 
