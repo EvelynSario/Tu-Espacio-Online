@@ -1,230 +1,180 @@
-/* Reset básico */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+// Configuración Firebase (reemplaza con tu config real)
+const firebaseConfig = {
+  apiKey: "TU_API_KEY",
+  authDomain: "TU_AUTH_DOMAIN",
+  projectId: "TU_PROJECT_ID",
+  appId: "TU_APP_ID",
+};
+
+// Inicializar Firebase
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+
+// Variables globales
+const productListEl = document.getElementById('product-list');
+const cartEl = document.getElementById('cart');
+const cartCountEl = document.getElementById('cart-count');
+const cartItemsEl = document.getElementById('cart-items');
+const cartTotalEl = document.getElementById('cart-total');
+
+const checkoutSection = document.getElementById('checkout-section');
+const checkoutProductsEl = document.getElementById('checkout-products');
+const checkoutTotalEl = document.getElementById('checkout-total');
+const checkoutForm = document.getElementById('checkout-form');
+
+let cart = [];
+
+// Lista de productos (ejemplo con 8 productos)
+const products = [
+  { id: 1, name: "Silla Gamer", price: 1200, image: "https://i.ibb.co/W6r4Jtp/silla-gamer.png" },
+  { id: 2, name: "Escritorio Moderno", price: 2500, image: "https://i.ibb.co/RH6dNrZ/escritorio-moderno.png" },
+  { id: 3, name: "Lámpara LED", price: 450, image: "https://i.ibb.co/2sjH4Jq/lampara-led.png" },
+  { id: 4, name: "Sofá Minimalista", price: 3500, image: "https://i.ibb.co/n0TbDXp/sofa-minimalista.png" },
+  { id: 5, name: "Mesa Auxiliar", price: 800, image: "https://i.ibb.co/wW4T9ZJ/mesa-auxiliar.png" },
+  { id: 6, name: "Alfombra Geométrica", price: 900, image: "https://i.ibb.co/8xq0sLn/alfombra.png" },
+  { id: 7, name: "Estantería de Madera", price: 1500, image: "https://i.ibb.co/YyR8B03/estanteria.png" },
+  { id: 8, name: "Cuadro Decorativo", price: 600, image: "https://i.ibb.co/jJ1RY2q/cuadro.png" },
+];
+
+// Función para renderizar productos
+function renderProducts() {
+  productListEl.innerHTML = '';
+  products.forEach(product => {
+    const div = document.createElement('div');
+    div.className = 'product';
+    div.innerHTML = `
+      <img src="${product.image}" alt="${product.name}" />
+      <h3>${product.name}</h3>
+      <p>Precio: $${product.price.toFixed(2)}</p>
+      <button onclick="addToCart(${product.id})">Agregar al carrito</button>
+    `;
+    productListEl.appendChild(div);
+  });
 }
 
-body {
-  font-family: 'Orbitron', sans-serif;
-  background-color: #0f0f1a;
-  color: #ffffff;
-  line-height: 1.6;
-  padding-bottom: 100px;
+// Añadir producto al carrito
+function addToCart(id) {
+  const product = products.find(p => p.id === id);
+  if (!product) return;
+
+  const existing = cart.find(item => item.id === id);
+  if (existing) {
+    existing.quantity++;
+  } else {
+    cart.push({ ...product, quantity: 1 });
+  }
+  updateCartUI();
 }
 
-/* Estilo general */
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #1a1a2e;
-  padding: 15px 20px;
-  box-shadow: 0 0 10px #8e2de2;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
+// Actualizar UI del carrito
+function updateCartUI() {
+  cartCountEl.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+  cartItemsEl.innerHTML = '';
+
+  cart.forEach(item => {
+    const li = document.createElement('li');
+    li.innerHTML = `
+      ${item.name} x${item.quantity} - $${(item.price * item.quantity).toFixed(2)}
+      <button onclick="removeFromCart(${item.id})">X</button>
+    `;
+    cartItemsEl.appendChild(li);
+  });
+
+  const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  cartTotalEl.textContent = total.toFixed(2);
 }
 
-.logo {
-  font-size: 24px;
-  font-weight: bold;
-  color: #8e2de2;
-  text-shadow: 0 0 5px #8e2de2, 0 0 10px #c471ed;
+// Remover producto del carrito
+function removeFromCart(id) {
+  cart = cart.filter(item => item.id !== id);
+  updateCartUI();
 }
 
-nav {
-  display: flex;
-  gap: 15px;
+// Mostrar/ocultar carrito
+function toggleCart() {
+  cartEl.classList.toggle('hidden');
+  checkoutSection.classList.add('hidden');
 }
 
-nav a {
-  text-decoration: none;
-  color: #fff;
-  font-weight: 600;
-  transition: color 0.3s;
-}
-
-nav a:hover {
-  color: #c471ed;
-}
-
-.actions button {
-  background: #8e2de2;
-  color: #fff;
-  border: none;
-  padding: 8px 14px;
-  margin-left: 10px;
-  cursor: pointer;
-  border-radius: 4px;
-  font-weight: bold;
-  box-shadow: 0 0 5px #8e2de2, 0 0 10px #c471ed;
-  transition: background 0.3s;
-}
-
-.actions button:hover {
-  background: #c471ed;
-}
-
-/* Botón hamburguesa */
-.hamburger {
-  display: none;
-  font-size: 24px;
-  background: none;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
-
-/* Secciones */
-main {
-  padding: 30px 20px;
-}
-
-section {
-  margin-bottom: 50px;
-}
-
-h1, h2, h3 {
-  color: #c471ed;
-  text-shadow: 0 0 5px #8e2de2;
-  margin-bottom: 15px;
-}
-
-/* Productos */
-.product-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
-}
-
-.product {
-  background: #1f1f2f;
-  padding: 15px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px #8e2de2;
-  transition: transform 0.3s;
-}
-
-.product:hover {
-  transform: translateY(-5px);
-}
-
-.product img {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 10px;
-}
-
-.product button {
-  background: #8e2de2;
-  color: white;
-  border: none;
-  padding: 8px;
-  width: 100%;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: bold;
-  box-shadow: 0 0 5px #8e2de2, 0 0 10px #c471ed;
-  margin-top: 10px;
-}
-
-.product button:hover {
-  background: #c471ed;
-}
-
-/* Carrito */
-.cart {
-  position: fixed;
-  right: 0;
-  top: 70px;
-  background: #1a1a2e;
-  padding: 20px;
-  width: 300px;
-  max-height: 90vh;
-  overflow-y: auto;
-  box-shadow: -5px 0 15px #8e2de2;
-  border-left: 2px solid #8e2de2;
-  z-index: 999;
-}
-
-.cart.hidden {
-  display: none;
-}
-
-.cart button {
-  margin-top: 10px;
-  width: 100%;
-}
-
-/* Checkout */
-#checkout-section {
-  background: #1f1f2f;
-  padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px #8e2de2;
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-#checkout-section h2 {
-  margin-bottom: 15px;
-}
-
-#checkout-section ul {
-  list-style: none;
-  margin-bottom: 20px;
-}
-
-#checkout-section label {
-  display: block;
-  margin-top: 10px;
-}
-
-#checkout-section input, #checkout-section select {
-  width: 100%;
-  padding: 8px;
-  margin-top: 4px;
-  background: #10101a;
-  border: 1px solid #8e2de2;
-  border-radius: 4px;
-  color: #fff;
-}
-
-#checkout-total {
-  font-size: 1.2em;
-  color: #8e2de2;
-  font-weight: bold;
-}
-
-/* Responsivo */
-@media (max-width: 768px) {
-  nav {
-    flex-direction: column;
-    position: absolute;
-    top: 60px;
-    left: 0;
-    background: #1a1a2e;
-    width: 100%;
-    display: none;
+// Pasar a checkout
+function goToCheckout() {
+  if (cart.length === 0) {
+    alert('El carrito está vacío.');
+    return;
   }
 
-  nav a {
-    padding: 10px;
-    display: block;
-  }
-
-  nav.hidden {
-    display: none;
-  }
-
-  nav.show {
-    display: flex;
-  }
-
-  .hamburger {
-    display: block;
-  }
+  cartEl.classList.add('hidden');
+  checkoutSection.classList.remove('hidden');
+  renderCheckout();
 }
+
+// Renderizar checkout
+function renderCheckout() {
+  checkoutProductsEl.innerHTML = '';
+  cart.forEach(item => {
+    const p = document.createElement('p');
+    p.textContent = `${item.name} x${item.quantity} - $${(item.price * item.quantity).toFixed(2)}`;
+    checkoutProductsEl.appendChild(p);
+  });
+
+  const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  checkoutTotalEl.textContent = total.toFixed(2);
+}
+
+// Cancelar checkout
+function cancelCheckout() {
+  checkoutSection.classList.add('hidden');
+}
+
+// Manejar formulario checkout
+checkoutForm.addEventListener('submit', e => {
+  e.preventDefault();
+
+  const paymentMethod = document.getElementById('payment-method').value;
+  const address = document.getElementById('address').value.trim();
+
+  if (!paymentMethod) {
+    alert('Seleccione un método de pago.');
+    return;
+  }
+  if (!address) {
+    alert('Ingrese la dirección de envío.');
+    return;
+  }
+
+  alert(`Pago realizado con éxito usando ${paymentMethod}.  
+  Envío a: ${address}  
+  Total: $${checkoutTotalEl.textContent}`);
+
+  cart = [];
+  updateCartUI();
+  checkoutSection.classList.add('hidden');
+});
+
+// Toggle menú hamburguesa
+function toggleMenu() {
+  const menu = document.getElementById('menu');
+  menu.classList.toggle('hidden');
+}
+
+// Login con Google
+function signInWithGoogle() {
+  const provider = new firebase.auth.GoogleAuthProvider();
+
+  auth.signInWithPopup(provider)
+    .then(result => {
+      const user = result.user;
+      alert(`Bienvenido, ${user.displayName}`);
+      document.getElementById('login-btn').style.display = 'none';
+    })
+    .catch(error => {
+      console.error('Error al iniciar sesión:', error);
+      alert('Error al iniciar sesión. Inténtalo de nuevo.');
+    });
+}
+
+// Al cargar la página:
+window.onload = () => {
+  renderProducts();
+  updateCartUI();
+};
