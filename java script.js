@@ -1,4 +1,4 @@
-// Firebase config
+// Configuración Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyBhIzR8YAM2QHYXFEHHQDiQkM4kSf-w2E4",
   authDomain: "tu-espacio-online.firebaseapp.com",
@@ -11,6 +11,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 
+// Productos
 const products = [
   {
     id: 1,
@@ -35,38 +36,38 @@ const products = [
   },
   {
     id: 4,
-    name: "Estantería Minimalista",
-    price: 220,
-    description: "Estantería de madera para organizar.",
-    image: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=400&q=80"
+    name: "Silla de Oficina",
+    price: 200,
+    description: "Silla ergonómica ajustable.",
+    image: "https://images.unsplash.com/photo-1582582421738-cc7ee1a63d0e?auto=format&fit=crop&w=400&q=80"
   },
   {
     id: 5,
-    name: "Alfombra Moderna",
-    price: 180,
-    description: "Alfombra con diseño geométrico.",
-    image: "https://images.unsplash.com/photo-1493666438817-866a91353ca9?auto=format&fit=crop&w=400&q=80"
+    name: "Espejo Decorativo",
+    price: 80,
+    description: "Espejo circular moderno.",
+    image: "https://images.unsplash.com/photo-1605003013994-dde4eab1274e?auto=format&fit=crop&w=400&q=80"
   },
   {
     id: 6,
-    name: "Silla de Oficina",
-    price: 130,
-    description: "Silla ergonómica para oficina.",
-    image: "https://images.unsplash.com/photo-1556910103-1d09e60b38a6?auto=format&fit=crop&w=400&q=80"
+    name: "Librero Minimalista",
+    price: 180,
+    description: "Estantería para libros en madera clara.",
+    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=400&q=80"
   },
   {
     id: 7,
-    name: "Mesa de Noche",
-    price: 90,
-    description: "Mesa pequeña para dormitorio.",
-    image: "https://images.unsplash.com/photo-1505692794403-66a8b4e1d90f?auto=format&fit=crop&w=400&q=80"
+    name: "Cama King Size",
+    price: 750,
+    description: "Cama amplia con base de madera.",
+    image: "https://images.unsplash.com/photo-1585559611331-63e5b89c6d5a?auto=format&fit=crop&w=400&q=80"
   },
   {
     id: 8,
-    name: "Lámpara de Pie",
-    price: 110,
-    description: "Lámpara elegante para salón.",
-    image: "https://images.unsplash.com/photo-1477768663690-19e1ab68e8ee?auto=format&fit=crop&w=400&q=80"
+    name: "Cortinas Blackout",
+    price: 90,
+    description: "Cortinas para bloquear la luz.",
+    image: "https://images.unsplash.com/photo-1601979031925-3cc84fd17a8c?auto=format&fit=crop&w=400&q=80"
   }
 ];
 
@@ -77,13 +78,13 @@ const cartCountEl = document.getElementById("cart-count");
 const cartEl = document.getElementById("cart");
 const menuEl = document.getElementById("menu");
 const loginBtn = document.getElementById("login-btn");
-const checkoutSection = document.getElementById("checkout");
-const checkoutSummary = document.getElementById("checkout-summary");
-const checkoutForm = document.getElementById("checkout-form");
+const checkoutSection = document.getElementById("checkout-section");
+const checkoutList = document.getElementById("checkout-list");
+const checkoutTotal = document.getElementById("checkout-total");
 
 let cart = [];
 
-// Renderiza productos
+// Mostrar productos
 function renderProducts() {
   productList.innerHTML = "";
   products.forEach(product => {
@@ -100,18 +101,16 @@ function renderProducts() {
   });
 }
 
-// Añadir al carrito
+// Agregar al carrito
 function addToCart(id) {
   const product = products.find(p => p.id === id);
   const item = cart.find(i => i.id === id);
-
   if (item) {
     item.quantity++;
   } else {
     cart.push({...product, quantity: 1});
   }
   updateCart();
-  alert(`"${product.name}" agregado al carrito.`);
 }
 
 // Eliminar del carrito
@@ -120,7 +119,7 @@ function removeFromCart(id) {
   updateCart();
 }
 
-// Actualizar carrito y contador
+// Actualizar carrito
 function updateCart() {
   cartItemsEl.innerHTML = "";
   let total = 0;
@@ -130,85 +129,70 @@ function updateCart() {
     count += item.quantity;
     const li = document.createElement("li");
     li.innerHTML = `
-      ${item.name} x${item.quantity} - $${(item.price * item.quantity).toFixed(2)}
+      ${item.name} x${item.quantity} - $${item.price * item.quantity}
       <button onclick="removeFromCart(${item.id})">Eliminar</button>
     `;
     cartItemsEl.appendChild(li);
   });
   cartTotalEl.textContent = total.toFixed(2);
   cartCountEl.textContent = count;
+  if (cart.length === 0) {
+    cartEl.classList.add("hidden");
+  }
 }
 
-// Mostrar/ocultar carrito
+// Toggle carrito y menú
 function toggleCart() {
   cartEl.classList.toggle("hidden");
 }
 
-// Mostrar/ocultar menú hamburguesa
 function toggleMenu() {
-  if (menuEl.classList.contains("show")) {
-    menuEl.classList.remove("show");
-  } else {
-    menuEl.classList.add("show");
-  }
+  menuEl.classList.toggle("hidden");
 }
 
 // Checkout
-function goToCheckout() {
+function checkout() {
   if (cart.length === 0) {
     alert("Tu carrito está vacío.");
     return;
   }
-
-  // Ocultar carrito y mostrar checkout
-  cartEl.classList.add("hidden");
-  checkoutSection.classList.remove("hidden");
-
-  // Mostrar resumen del carrito
-  checkoutSummary.innerHTML = "";
+  checkoutList.innerHTML = "";
   let total = 0;
   cart.forEach(item => {
+    const li = document.createElement("li");
+    li.textContent = `${item.name} x${item.quantity} - $${item.price * item.quantity}`;
+    checkoutList.appendChild(li);
     total += item.price * item.quantity;
-    const p = document.createElement("p");
-    p.textContent = `${item.name} x${item.quantity} - $${(item.price * item.quantity).toFixed(2)}`;
-    checkoutSummary.appendChild(p);
   });
-  const totalP = document.createElement("p");
-  totalP.innerHTML = `<strong>Total: $${total.toFixed(2)}</strong>`;
-  checkoutSummary.appendChild(totalP);
+  checkoutTotal.textContent = total.toFixed(2);
+  document.getElementById("checkout-section").scrollIntoView({ behavior: "smooth" });
 }
 
-// Cancelar checkout
-function cancelCheckout() {
-  checkoutSection.classList.add("hidden");
-}
-
-// Enviar formulario checkout
-checkoutForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-  alert("Compra confirmada. Gracias por tu compra!");
-  cart = [];
-  updateCart();
-  checkoutSection.classList.add("hidden");
-  checkoutForm.reset();
-});
-
-// Autenticación Google con Firebase
+// Login con Google
 function signInWithGoogle() {
   const provider = new firebase.auth.GoogleAuthProvider();
   auth.signInWithPopup(provider)
-    .then((result) => {
-      alert(`Bienvenido ${result.user.displayName}`);
-      loginBtn.textContent = `Hola, ${result.user.displayName}`;
-      loginBtn.disabled = true;
+    .then(result => {
+      const user = result.user;
+      alert(`Bienvenido, ${user.displayName}`);
+      loginBtn.textContent = "Cerrar sesión";
+      loginBtn.onclick = signOut;
     })
-    .catch((error) => {
-      alert("Error en el inicio de sesión: " + error.message);
+    .catch(error => {
+      console.error(error);
+      alert("No se pudo iniciar sesión.");
     });
 }
 
-// Inicializar página
-document.addEventListener("DOMContentLoaded", () => {
-  renderProducts();
-  updateCart();
-});
+// Logout
+function signOut() {
+  auth.signOut().then(() => {
+    alert("Sesión cerrada.");
+    loginBtn.textContent = "Iniciar sesión con Google";
+    loginBtn.onclick = signInWithGoogle;
+  });
+}
+
+// Iniciar
+renderProducts();
+updateCart();
