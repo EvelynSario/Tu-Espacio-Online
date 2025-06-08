@@ -8,156 +8,151 @@ const firebaseConfig = {
   appId: "1:74908938191:web:d0e78ba481550cff12ecba"
 };
 
-// Inicializar Firebase
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 
-// Variables globales
-const productListEl = document.getElementById('product-list');
-const cartEl = document.getElementById('cart');
-const cartCountEl = document.getElementById('cart-count');
-const cartItemsEl = document.getElementById('cart-items');
-const cartTotalEl = document.getElementById('cart-total');
+document.getElementById("login-btn").onclick = () => {
+  document.getElementById("auth-modal").style.display = "flex";
+};
+document.getElementById("signup-btn").onclick = () => {
+  document.getElementById("auth-modal").style.display = "flex";
+};
+document.getElementById("close-modal").onclick = () => {
+  document.getElementById("auth-modal").style.display = "none";
+};
+document.getElementById("google-login").onclick = () => {
+  const provider = new firebase.auth.GoogleAuthProvider();
+  auth.signInWithPopup(provider)
+    .then(result => alert(`Bienvenido, ${result.user.displayName}`))
+    .catch(err => alert("Error: " + err.message));
+};
+document.getElementById("facebook-login").onclick = () => {
+  const provider = new firebase.auth.FacebookAuthProvider();
+  auth.signInWithPopup(provider)
+    .then(result => alert(`Bienvenido, ${result.user.displayName}`))
+    .catch(err => alert("Error: " + err.message));
+};
 
-const checkoutSection = document.getElementById('checkout-section');
-const checkoutProductsEl = document.getElementById('checkout-products');
-const checkoutTotalEl = document.getElementById('checkout-total');
-const checkoutForm = document.getElementById('checkout-form');
+let carrito = [];
+const actualizarCarrito = () => {
+  const lista = document.getElementById("cart-items");
+  const total = document.getElementById("cart-total");
+  const count = document.getElementById("cart-count");
+  lista.innerHTML = "";
+  let suma = 0;
 
-let cart = [];
+  carrito.forEach((item, index) => {
+    const li = document.createElement("li");
+    li.textContent = `${item.nombre} - $${item.precio.toFixed(2)}`;
 
-// Lista de productos (ejemplo con 8 productos)
-const products = [
-  { id: 1, name: "Silla Gamer", price: 1200, image: "https://i.ibb.co/W6r4Jtp/silla-gamer.png" },
-  { id: 2, name: "Escritorio Moderno", price: 2500, image: "https://i.ibb.co/RH6dNrZ/escritorio-moderno.png" },
-  { id: 3, name: "Lámpara LED", price: 450, image: "https://i.ibb.co/2sjH4Jq/lampara-led.png" },
-  { id: 4, name: "Sofá Minimalista", price: 3500, image: "https://i.ibb.co/n0TbDXp/sofa-minimalista.png" },
-  { id: 5, name: "Mesa Auxiliar", price: 800, image: "https://i.ibb.co/wW4T9ZJ/mesa-auxiliar.png" },
-  { id: 6, name: "Alfombra Geométrica", price: 900, image: "https://i.ibb.co/8xq0sLn/alfombra.png" },
-  { id: 7, name: "Estantería de Madera", price: 1500, image: "https://i.ibb.co/YyR8B03/estanteria.png" },
-  { id: 8, name: "Cuadro Decorativo", price: 600, image: "https://i.ibb.co/jJ1RY2q/cuadro.png" },
-];
+    // Botón para quitar producto
+    const quitarBtn = document.createElement("button");
+    quitarBtn.textContent = "❌ Quitar";
+    quitarBtn.style.marginLeft = "10px";
+    quitarBtn.onclick = () => {
+      carrito.splice(index, 1);
+      actualizarCarrito();
+      actualizarEstadoPagar(); // Actualizar estado del botón pagar
+    };
 
-// Función para renderizar productos
-function renderProducts() {
-  productListEl.innerHTML = '';
-  products.forEach(product => {
-    const div = document.createElement('div');
-    div.className = 'product';
-    div.innerHTML = `
-      <img src="${product.image}" alt="${product.name}" />
-      <h3>${product.name}</h3>
-      <p>Precio: $${product.price.toFixed(2)}</p>
-      <button onclick="addToCart(${product.id})">Agregar al carrito</button>
-    `;
-    productListEl.appendChild(div);
-  });
-}
-
-// Añadir producto al carrito
-function addToCart(id) {
-  const product = products.find(p => p.id === id);
-  if (!product) return;
-
-  const existing = cart.find(item => item.id === id);
-  if (existing) {
-    existing.quantity++;
-  } else {
-    cart.push({ ...product, quantity: 1 });
-  }
-  updateCartUI();
-}
-
-// Actualizar UI del carrito
-function updateCartUI() {
-  cartCountEl.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
-  cartItemsEl.innerHTML = '';
-
-  cart.forEach(item => {
-    const li = document.createElement('li');
-    li.innerHTML = `
-      ${item.name} x${item.quantity} - $${(item.price * item.quantity).toFixed(2)}
-      <button onclick="removeFromCart(${item.id})">X</button>
-    `;
-    cartItemsEl.appendChild(li);
+    li.appendChild(quitarBtn);
+    lista.appendChild(li);
+    suma += item.precio;
   });
 
-  const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  cartTotalEl.textContent = total.toFixed(2);
-}
+  total.textContent = suma.toFixed(2);
+  count.textContent = carrito.length;
+};
 
-// Remover producto del carrito
-function removeFromCart(id) {
-  cart = cart.filter(item => item.id !== id);
-  updateCartUI();
-}
-
-// Mostrar/ocultar carrito
-function toggleCart() {
-  cartEl.classList.toggle('hidden');
-  checkoutSection.classList.add('hidden');
-}
-
-// Pasar a checkout
-function goToCheckout() {
-  if (cart.length === 0) {
-    alert('El carrito está vacío.');
-    return;
-  }
-
-  cartEl.classList.add('hidden');
-  checkoutSection.classList.remove('hidden');
-  renderCheckout();
-}
-
-// Renderizar checkout
-function renderCheckout() {
-  checkoutProductsEl.innerHTML = '';
-  cart.forEach(item => {
-    const p = document.createElement('p');
-    p.textContent = `${item.name} x${item.quantity} - $${(item.price * item.quantity).toFixed(2)}`;
-    checkoutProductsEl.appendChild(p);
+document.querySelectorAll(".add-cart").forEach(btn => {
+  btn.addEventListener("click", e => {
+    const producto = e.target.parentElement;
+    const nombre = producto.getAttribute("data-nombre");
+    const precio = parseFloat(producto.getAttribute("data-precio"));
+    carrito.push({ nombre, precio });
+    actualizarCarrito();
+    actualizarEstadoPagar(); // Actualizar estado del botón pagar
   });
-
-  const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  checkoutTotalEl.textContent = total.toFixed(2);
-}
-
-// Cancelar checkout
-function cancelCheckout() {
-  checkoutSection.classList.add('hidden');
-}
-
-// Manejar formulario checkout
-checkoutForm.addEventListener('submit', e => {
-  e.preventDefault();
-
-  const paymentMethod = document.getElementById('payment-method').value;
-  const address = document.getElementById('address').value.trim();
-
-  if (!paymentMethod) {
-    alert('Seleccione un método de pago.');
-    return;
-  }
-  if (!address) {
-    alert('Ingrese la dirección de envío.');
-    return;
-  }
-
-  alert(`Pago realizado con éxito usando ${paymentMethod}.  
-  Envío a: ${address}  
-  Total: $${checkoutTotalEl.textContent}`);
-
-  cart = [];
-  updateCartUI();
-  checkoutSection.classList.add('hidden');
 });
 
-// Toggle menú hamburguesa
-function toggleMenu() {
-  const menu = document.getElementById('menu');
-  menu.classList.toggle('hidden');
-}
+document.getElementById("cart-btn").onclick = () => {
+  document.getElementById("cart-modal").style.display = "flex";
+};
+document.getElementById("close-cart").onclick = () => {
+  document.getElementById("cart-modal").style.display = "none";
+};
+
+/* BOTÓN HAMBURGUESA */
+const hamburgerBtn = document.getElementById("hamburger-btn");
+const sidebar = document.getElementById("sidebar");
+
+hamburgerBtn.addEventListener("click", () => {
+  sidebar.classList.toggle("open");
+});
+
+/* Cerrar menú al hacer click en enlace (móvil) */
+sidebar.querySelectorAll("a").forEach(link => {
+  link.addEventListener("click", () => {
+    if (window.innerWidth <= 768) {
+      sidebar.classList.remove("open");
+    }
+  });
+});
+
+/* Mostrar sección de checkout al dar clic en "Pagar" */
+document.getElementById("checkout-btn").addEventListener("click", () => {
+  if(carrito.length === 0) {
+    alert("Tu carrito está vacío.");
+    return;
+  }
+  document.getElementById("cart-modal").style.display = "none";
+  document.getElementById("checkout-section").style.display = "block";
+
+  // Calcular total
+  let suma = carrito.reduce((acc, item) => acc + item.precio, 0);
+  document.getElementById("checkout-total").textContent = suma.toFixed(2);
+
+  // Mostrar resumen de productos en el checkout
+  const checkoutItems = document.getElementById("checkout-items");
+  checkoutItems.innerHTML = "";
+  carrito.forEach(item => {
+    const li = document.createElement("li");
+    li.textContent = `${item.nombre} - $${item.precio.toFixed(2)}`;
+    checkoutItems.appendChild(li);
+  });
+
+  // Scroll al checkout
+  window.scrollTo({
+    top: document.getElementById("checkout-section").offsetTop,
+    behavior: "smooth"
+  });
+});
+
+/* Validar y procesar el formulario de checkout */
+document.getElementById("checkout-form").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const nombre = document.getElementById("checkout-nombre").value.trim();
+  const direccion = document.getElementById("direccion").value.trim();
+  const metodo = document.getElementById("metodo-pago").value;
+
+  if (!nombre || !direccion || !metodo) {
+    alert("Por favor completa todos los campos.");
+    return;
+  }
+
+  alert("Gracias por tu compra, " + nombre + ". ¡Tu pedido está en camino!");
+  carrito = [];
+  actualizarCarrito();
+  actualizarEstadoPagar(); // Actualizar estado del botón pagar
+  document.getElementById("checkout-form").reset();
+  document.getElementById("checkout-section").style.display = "none";
+});
+
+/* Habilitar o deshabilitar botón pagar según contenido del carrito */
+const checkoutBtn = document.getElementById("checkout-btn");
+const actualizarEstadoPagar = () => {
+  checkoutBtn.disabled = carrito.length === 0;
+};
 
 // Login con Google
 function signInWithGoogle() {
