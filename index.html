@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
@@ -61,8 +61,7 @@
     <h3>Carrito</h3>
     <ul id="cart-items"></ul>
     <p>Total: $<span id="cart-total">0.00</span></p>
-    <!-- 🛠️ Este botón tenía el problema -->
-    <button id="pay-btn">Pagar</button>
+    <button onclick="goToCheckout()">Pagar</button>
     <button onclick="toggleCart()">Cerrar</button>
   </div>
 
@@ -90,17 +89,7 @@
     </form>
   </div>
 
-  <!-- ✅ Aquí va el script de tu lógica -->
-  <script src="javascript.js"></script>
+<script src="javascript.js"></script>
 
-  <!-- ✅ Agrega este pequeño script al final del body -->
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const payBtn = document.getElementById('pay-btn');
-      payBtn.addEventListener('click', () => {
-        goToCheckout();
-      });
-    });
-  </script>
 </body>
 </html>
