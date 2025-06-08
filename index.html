@@ -15,7 +15,8 @@
     <nav id="menu" class="hidden">
       <a href="#productos" onclick="toggleMenu()">Productos</a>
       <a href="#mision" onclick="toggleMenu()">Misión y Visión</a>
-      <a href="#privacidad" onclick="toggleMenu()">Políticas de Privacidad</a>
+      <a href="#privacidad" onclick="toggleMenu()">Privacidad</a>
+      <a href="#devoluciones" onclick="toggleMenu()">Devoluciones</a>
       <a href="#contacto" onclick="toggleMenu()">Contacto</a>
     </nav>
     <div class="actions">
@@ -28,14 +29,14 @@
     <section id="productos">
       <h1>Productos Destacados</h1>
       <div class="product-list" id="product-list">
-        <!-- Productos generados por JS -->
+        <!-- JS generará productos aquí -->
       </div>
     </section>
 
     <section id="mision">
       <h2>Misión y Visión</h2>
-      <p><strong>Misión:</strong> Ofrecer productos de calidad y estilo.</p>
-      <p><strong>Visión:</strong> Ser líderes en decoración online.</p>
+      <p><strong>Misión:</strong> Mi misión es ofrecer productos de buena calidad a las personas para que encuentren los productos perfectos para decorar su hogar.</p>
+      <p><strong>Visión:</strong> Ser la empresa más única y creativa y con productos de buena calidad para nuestros clientes.</p>
     </section>
 
     <section id="privacidad">
@@ -43,9 +44,37 @@
       <p>No compartimos tu información personal con terceros.</p>
     </section>
 
+    <section id="devoluciones">
+      <h2>Devoluciones</h2>
+      <p>
+        En <strong>Tu Espacio Online</strong> aceptamos devoluciones dentro de los primeros 15 días después de recibir tu pedido.<br />
+        Para iniciar una devolución, el producto debe estar en perfecto estado, sin uso y en su empaque original.<br />
+        Contáctanos al correo <a href="mailto:sarioramirezevelin@gmail.com">sarioramirezevelin@gmail.com</a> con tu número de pedido y motivo de la devolución.<br />
+        Una vez aprobado, te enviaremos instrucciones para completar el proceso.
+      </p>
+    </section>
+
     <section id="contacto">
       <h2>Contacto</h2>
-      <p>Email: contacto@tuespacioonline.com</p>
+      <p>Email: <a href="mailto:sarioramirezevelin@gmail.com">sarioramirezevelin@gmail.com</a></p>
+    </section>
+
+    <section id="checkout" class="hidden">
+      <h2>Checkout</h2>
+      <div id="checkout-summary"></div>
+      <form id="checkout-form">
+        <label for="direccion">Dirección de envío:</label>
+        <input type="text" id="direccion" name="direccion" required />
+        <label for="metodoPago">Método de pago:</label>
+        <select id="metodoPago" name="metodoPago" required>
+          <option value="" disabled selected>Seleccione un método</option>
+          <option value="tarjeta">Tarjeta de crédito/débito</option>
+          <option value="paypal">PayPal</option>
+          <option value="transferencia">Transferencia bancaria</option>
+        </select>
+        <button type="submit">Confirmar compra</button>
+        <button type="button" onclick="cancelCheckout()">Cancelar</button>
+      </form>
     </section>
   </main>
 
@@ -53,28 +82,9 @@
   <div id="cart" class="cart hidden">
     <h3>Carrito</h3>
     <ul id="cart-items"></ul>
-    <p>Total: $<span id="cart-total">0</span></p>
-    <button onclick="checkout()">Pagar</button>
-  </div>
-
-  <!-- Checkout -->
-  <div id="checkout" class="checkout hidden">
-    <h3>Checkout</h3>
-    <ul id="checkout-items"></ul>
-    <p>Total a pagar: $<span id="checkout-total">0</span></p>
-
-    <label for="address">Dirección de envío:</label>
-    <textarea id="address" rows="3" placeholder="Ingresa tu dirección"></textarea>
-
-    <label for="payment-method">Método de pago:</label>
-    <select id="payment-method">
-      <option value="tarjeta">Tarjeta de crédito/débito</option>
-      <option value="paypal">PayPal</option>
-      <option value="transferencia">Transferencia bancaria</option>
-    </select>
-
-    <button onclick="confirmPurchase()">Confirmar compra</button>
-    <button onclick="cancelCheckout()">Cancelar</button>
+    <p>Total: $<span id="cart-total">0.00</span></p>
+    <button onclick="goToCheckout()">Pagar</button>
+    <button onclick="toggleCart()">Cerrar carrito</button>
   </div>
 
   <script src="script.js"></script>
