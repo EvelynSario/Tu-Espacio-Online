@@ -4,10 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Tu Espacio Online</title>
-  <link rel="stylesheet" href="styles.css" />
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
 </head>
 <body>
   <header>
@@ -29,7 +29,9 @@
   <main>
     <section id="productos">
       <h1>Productos Destacados</h1>
-      <div class="product-list" id="product-list"></div>
+      <div class="product-list" id="product-list">
+        <!-- Productos generados por JS -->
+      </div>
     </section>
 
     <section id="mision">
@@ -40,43 +42,43 @@
 
     <section id="privacidad">
       <h2>Políticas de Privacidad</h2>
-      <p>No compartimos tu información personal con terceros.</p>
+      <p>No compartimos tu información personal con terceros. Toda tu información está protegida conforme a nuestras normas de privacidad.</p>
     </section>
 
     <section id="devoluciones">
       <h2>Devoluciones</h2>
-      <p>Puedes solicitar una devolución dentro de los primeros 15 días posteriores a tu compra, conservando tu comprobante y el producto en buenas condiciones.</p>
+      <p>Si no estás satisfecho con tu compra, puedes solicitar una devolución en un plazo de 7 días naturales. El producto debe estar en perfectas condiciones y con su empaque original.</p>
     </section>
 
     <section id="contacto">
       <h2>Contacto</h2>
-      <p>Email: sarioramirezevelin@gmail.com</p>
+      <p>Correo: <a href="mailto:sarioramirezevelin@gmail.com">sarioramirezevelin@gmail.com</a></p>
     </section>
 
-    <section id="checkout" class="hidden">
-      <h2>Finalizar Compra</h2>
-      <form id="checkout-form">
-        <label>Dirección de entrega:<br>
-          <input type="text" id="direccion" required />
-        </label>
-        <label>Método de pago:<br>
-          <select id="metodo-pago">
-            <option>Tarjeta de crédito</option>
-            <option>Transferencia</option>
-            <option>Pago contra entrega</option>
-          </select>
-        </label>
-        <div id="checkout-summary"></div>
-        <button type="submit">Confirmar Compra</button>
-      </form>
+    <section id="checkout-section" class="hidden">
+      <h2>Resumen de Compra</h2>
+      <ul id="checkout-items"></ul>
+      <p><strong>Total:</strong> $<span id="checkout-total">0.00</span></p>
+
+      <label for="direccion">Dirección de Envío:</label>
+      <input type="text" id="direccion" placeholder="Ingresa tu dirección" />
+
+      <label for="pago">Método de Pago:</label>
+      <select id="pago">
+        <option value="tarjeta">Tarjeta de Crédito</option>
+        <option value="paypal">PayPal</option>
+        <option value="oxxo">Pago en OXXO</option>
+      </select>
+
+      <button onclick="confirmarPago()">Confirmar Compra</button>
     </section>
   </main>
 
   <div id="cart" class="cart hidden">
     <h3>Carrito</h3>
     <ul id="cart-items"></ul>
-    <p>Total: $<span id="cart-total">0</span></p>
-    <button onclick="goToCheckout()">Pagar</button>
+    <p>Total: $<span id="cart-total">0.00</span></p>
+    <button onclick="irACheckout()">Pagar</button>
   </div>
 
   <script src="script.js"></script>
