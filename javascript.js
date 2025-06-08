@@ -13,16 +13,8 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 
 // Variables globales
-const productListEl = document.getElementById('product-list');
-const cartEl = document.getElementById('cart');
-const cartCountEl = document.getElementById('cart-count');
-const cartItemsEl = document.getElementById('cart-items');
-const cartTotalEl = document.getElementById('cart-total');
-
-const checkoutSection = document.getElementById('checkout-section');
-const checkoutProductsEl = document.getElementById('checkout-products');
-const checkoutTotalEl = document.getElementById('checkout-total');
-const checkoutForm = document.getElementById('checkout-form');
+let productListEl, cartEl, cartCountEl, cartItemsEl, cartTotalEl;
+let checkoutSection, checkoutProductsEl, checkoutTotalEl, checkoutForm;
 
 let cart = [];
 
@@ -177,6 +169,17 @@ function signInWithGoogle() {
 
 // Al cargar la página:
 window.onload = () => {
+  // Asignar referencias a los elementos del DOM
+  productListEl = document.getElementById('product-list');
+  cartEl = document.getElementById('cart');
+  cartCountEl = document.getElementById('cart-count');
+  cartItemsEl = document.getElementById('cart-items');
+  cartTotalEl = document.getElementById('cart-total');
+  checkoutSection = document.getElementById('checkout-section');
+  checkoutProductsEl = document.getElementById('checkout-products');
+  checkoutTotalEl = document.getElementById('checkout-total');
+  checkoutForm = document.getElementById('checkout-form');
+
   renderProducts();
   updateCartUI();
 };
