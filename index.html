@@ -2,22 +2,21 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Tu Espacio Online</title>
   <link rel="stylesheet" href="style.css" />
   <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
 </head>
-
 <body>
   <header>
     <div class="logo">Tu Espacio Online</div>
     <button class="hamburger" onclick="toggleMenu()">☰</button>
     <nav id="menu" class="hidden">
-      <a href="#productos">Productos</a>
-      <a href="#mision">Misión y Visión</a>
-      <a href="#privacidad">Privacidad</a>
-      <a href="#contacto">Contacto</a>
+      <a href="#productos" onclick="toggleMenu()">Productos</a>
+      <a href="#mision" onclick="toggleMenu()">Misión y Visión</a>
+      <a href="#privacidad" onclick="toggleMenu()">Políticas de Privacidad</a>
+      <a href="#contacto" onclick="toggleMenu()">Contacto</a>
     </nav>
     <div class="actions">
       <button id="login-btn" onclick="signInWithGoogle()">Iniciar Sesión con Google</button>
@@ -29,7 +28,7 @@
     <section id="productos">
       <h1>Productos Destacados</h1>
       <div class="product-list" id="product-list">
-        <!-- Productos generados con JS -->
+        <!-- Productos generados por JS -->
       </div>
     </section>
 
@@ -50,11 +49,32 @@
     </section>
   </main>
 
+  <!-- Carrito -->
   <div id="cart" class="cart hidden">
     <h3>Carrito</h3>
     <ul id="cart-items"></ul>
     <p>Total: $<span id="cart-total">0</span></p>
     <button onclick="checkout()">Pagar</button>
+  </div>
+
+  <!-- Checkout -->
+  <div id="checkout" class="checkout hidden">
+    <h3>Checkout</h3>
+    <ul id="checkout-items"></ul>
+    <p>Total a pagar: $<span id="checkout-total">0</span></p>
+
+    <label for="address">Dirección de envío:</label>
+    <textarea id="address" rows="3" placeholder="Ingresa tu dirección"></textarea>
+
+    <label for="payment-method">Método de pago:</label>
+    <select id="payment-method">
+      <option value="tarjeta">Tarjeta de crédito/débito</option>
+      <option value="paypal">PayPal</option>
+      <option value="transferencia">Transferencia bancaria</option>
+    </select>
+
+    <button onclick="confirmPurchase()">Confirmar compra</button>
+    <button onclick="cancelCheckout()">Cancelar</button>
   </div>
 
   <script src="script.js"></script>
