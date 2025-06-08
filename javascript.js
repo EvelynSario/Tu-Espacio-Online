@@ -98,61 +98,60 @@ function toggleCart() {
   checkoutSection.classList.add('hidden');
 }
 
-// Pasar a checkout
-function goToCheckout() {
-  if (cart.length === 0) {
-    alert('El carrito está vacío.');
+/* Mostrar sección de checkout al dar clic en "Pagar" */
+document.getElementById("checkout-btn").addEventListener("click", () => {
+  if(carrito.length === 0) {
+    alert("Tu carrito está vacío.");
     return;
   }
+  document.getElementById("cart-modal").style.display = "none";
+  document.getElementById("checkout-section").style.display = "block";
 
-  cartEl.classList.add('hidden');
-  checkoutSection.classList.remove('hidden');
-  renderCheckout();
-}
+  // Calcular total
+  let suma = carrito.reduce((acc, item) => acc + item.precio, 0);
+  document.getElementById("checkout-total").textContent = suma.toFixed(2);
 
-// Renderizar checkout
-function renderCheckout() {
-  checkoutProductsEl.innerHTML = '';
-  cart.forEach(item => {
-    const p = document.createElement('p');
-    p.textContent = `${item.name} x${item.quantity} - $${(item.price * item.quantity).toFixed(2)}`;
-    checkoutProductsEl.appendChild(p);
+  // Mostrar resumen de productos en el checkout
+  const checkoutItems = document.getElementById("checkout-items");
+  checkoutItems.innerHTML = "";
+  carrito.forEach(item => {
+    const li = document.createElement("li");
+    li.textContent = `${item.nombre} - $${item.precio.toFixed(2)}`;
+    checkoutItems.appendChild(li);
   });
 
-  const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  checkoutTotalEl.textContent = total.toFixed(2);
-}
-
-// Cancelar checkout
-function cancelCheckout() {
-  checkoutSection.classList.add('hidden');
-}
-
-// Manejar formulario checkout
-checkoutForm.addEventListener('submit', e => {
-  e.preventDefault();
-
-  const paymentMethod = document.getElementById('payment-method').value;
-  const address = document.getElementById('address').value.trim();
-
-  if (!paymentMethod) {
-    alert('Seleccione un método de pago.');
-    return;
-  }
-  if (!address) {
-    alert('Ingrese la dirección de envío.');
-    return;
-  }
-
-  alert(`Pago realizado con éxito usando ${paymentMethod}.  
-  Envío a: ${address}  
-  Total: $${checkoutTotalEl.textContent}`);
-
-  cart = [];
-  updateCartUI();
-  checkoutSection.classList.add('hidden');
+  // Scroll al checkout
+  window.scrollTo({
+    top: document.getElementById("checkout-section").offsetTop,
+    behavior: "smooth"
+  });
 });
 
+/* Validar y procesar el formulario de checkout */
+document.getElementById("checkout-form").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const nombre = document.getElementById("checkout-nombre").value.trim();
+  const direccion = document.getElementById("direccion").value.trim();
+  const metodo = document.getElementById("metodo-pago").value;
+
+  if (!nombre || !direccion || !metodo) {
+    alert("Por favor completa todos los campos.");
+    return;
+  }
+
+  alert("Gracias por tu compra, " + nombre + ". ¡Tu pedido está en camino!");
+  carrito = [];
+  actualizarCarrito();
+  actualizarEstadoPagar(); // Actualizar estado del botón pagar
+  document.getElementById("checkout-form").reset();
+  document.getElementById("checkout-section").style.display = "none";
+});
+
+/* Habilitar o deshabilitar botón pagar según contenido del carrito */
+const checkoutBtn = document.getElementById("checkout-btn");
+const actualizarEstadoPagar = () => {
+  checkoutBtn.disabled = carrito.length === 0;
+};
 // Toggle menú hamburguesa
 function toggleMenu() {
   const menu = document.getElementById('menu');
