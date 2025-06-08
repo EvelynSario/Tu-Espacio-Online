@@ -2,22 +2,23 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Tu Espacio Online</title>
-  <link rel="stylesheet" href="style.css" />
-  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+  <link rel="stylesheet" href="styles.css" />
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
 </head>
 <body>
   <header>
     <div class="logo">Tu Espacio Online</div>
     <button class="hamburger" onclick="toggleMenu()">☰</button>
     <nav id="menu" class="hidden">
-      <a href="#productos" onclick="toggleMenu()">Productos</a>
-      <a href="#mision" onclick="toggleMenu()">Misión y Visión</a>
-      <a href="#privacidad" onclick="toggleMenu()">Privacidad</a>
-      <a href="#devoluciones" onclick="toggleMenu()">Devoluciones</a>
-      <a href="#contacto" onclick="toggleMenu()">Contacto</a>
+      <a href="#productos">Productos</a>
+      <a href="#mision">Misión y Visión</a>
+      <a href="#privacidad">Privacidad</a>
+      <a href="#devoluciones">Devoluciones</a>
+      <a href="#contacto">Contacto</a>
     </nav>
     <div class="actions">
       <button id="login-btn" onclick="signInWithGoogle()">Iniciar Sesión con Google</button>
@@ -28,9 +29,7 @@
   <main>
     <section id="productos">
       <h1>Productos Destacados</h1>
-      <div class="product-list" id="product-list">
-        <!-- JS generará productos aquí -->
-      </div>
+      <div class="product-list" id="product-list"></div>
     </section>
 
     <section id="mision">
@@ -46,45 +45,38 @@
 
     <section id="devoluciones">
       <h2>Devoluciones</h2>
-      <p>
-        En <strong>Tu Espacio Online</strong> aceptamos devoluciones dentro de los primeros 15 días después de recibir tu pedido.<br />
-        Para iniciar una devolución, el producto debe estar en perfecto estado, sin uso y en su empaque original.<br />
-        Contáctanos al correo <a href="mailto:sarioramirezevelin@gmail.com">sarioramirezevelin@gmail.com</a> con tu número de pedido y motivo de la devolución.<br />
-        Una vez aprobado, te enviaremos instrucciones para completar el proceso.
-      </p>
+      <p>Puedes solicitar una devolución dentro de los primeros 15 días posteriores a tu compra, conservando tu comprobante y el producto en buenas condiciones.</p>
     </section>
 
     <section id="contacto">
       <h2>Contacto</h2>
-      <p>Email: <a href="mailto:sarioramirezevelin@gmail.com">sarioramirezevelin@gmail.com</a></p>
+      <p>Email: sarioramirezevelin@gmail.com</p>
     </section>
 
     <section id="checkout" class="hidden">
-      <h2>Checkout</h2>
-      <div id="checkout-summary"></div>
+      <h2>Finalizar Compra</h2>
       <form id="checkout-form">
-        <label for="direccion">Dirección de envío:</label>
-        <input type="text" id="direccion" name="direccion" required />
-        <label for="metodoPago">Método de pago:</label>
-        <select id="metodoPago" name="metodoPago" required>
-          <option value="" disabled selected>Seleccione un método</option>
-          <option value="tarjeta">Tarjeta de crédito/débito</option>
-          <option value="paypal">PayPal</option>
-          <option value="transferencia">Transferencia bancaria</option>
-        </select>
-        <button type="submit">Confirmar compra</button>
-        <button type="button" onclick="cancelCheckout()">Cancelar</button>
+        <label>Dirección de entrega:<br>
+          <input type="text" id="direccion" required />
+        </label>
+        <label>Método de pago:<br>
+          <select id="metodo-pago">
+            <option>Tarjeta de crédito</option>
+            <option>Transferencia</option>
+            <option>Pago contra entrega</option>
+          </select>
+        </label>
+        <div id="checkout-summary"></div>
+        <button type="submit">Confirmar Compra</button>
       </form>
     </section>
   </main>
 
-  <!-- Carrito -->
   <div id="cart" class="cart hidden">
     <h3>Carrito</h3>
     <ul id="cart-items"></ul>
-    <p>Total: $<span id="cart-total">0.00</span></p>
+    <p>Total: $<span id="cart-total">0</span></p>
     <button onclick="goToCheckout()">Pagar</button>
-    <button onclick="toggleCart()">Cerrar carrito</button>
   </div>
 
   <script src="script.js"></script>
