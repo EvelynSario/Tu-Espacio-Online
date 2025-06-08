@@ -4,77 +4,92 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Tu Espacio Online</title>
-  <link rel="stylesheet" href="styles.css" />
-  <!-- Aquí puedes agregar tus estilos neón -->
+  <link rel="stylesheet" href="style.css" />
+  <!-- Firebase SDKs compatibles (compat) para facilidad -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
 </head>
 <body>
+  <header>
+    <div class="logo">Tu Espacio Online</div>
+    <button class="hamburger" onclick="toggleMenu()">☰</button>
+    <nav id="menu" class="hidden">
+      <a href="#productos" onclick="toggleMenu()">Productos</a>
+      <a href="#mision" onclick="toggleMenu()">Misión y Visión</a>
+      <a href="#privacidad" onclick="toggleMenu()">Políticas de Privacidad</a>
+      <a href="#devoluciones" onclick="toggleMenu()">Devoluciones</a>
+      <a href="#contacto" onclick="toggleMenu()">Contacto</a>
+    </nav>
+    <div class="actions">
+      <button id="login-btn" onclick="signInWithGoogle()">Iniciar Sesión con Google</button>
+      <button onclick="toggleCart()">🛒 <span id="cart-count">0</span></button>
+    </div>
+  </header>
 
   <main>
-    <section id="product-list" class="products-container neon-card"></section>
-
-    <!-- Modal carrito -->
-    <div id="cart-modal" class="modal neon-bg" style="display:none;">
-      <div class="modal-content neon-card">
-        <span id="close-cart" class="neon-text" style="font-size: 28px; cursor:pointer;">&times;</span>
-        <h2 class="neon-text">Carrito de Compras</h2>
-        <ul id="cart-items" class="neon-text"></ul>
-        <p class="neon-text">Total: $<span id="cart-total">0.00</span></p>
-        <button id="checkout-btn" class="neon-btn" style="margin-top: 10px;" disabled>Pagar</button>
+    <section id="productos">
+      <h1>Productos Destacados</h1>
+      <div class="product-list" id="product-list">
+        <!-- Productos generados por JS -->
       </div>
-    </div>
-
-    <!-- Sección Checkout -->
-    <section id="checkout-section" class="neon-card" style="display:none; padding: 30px; margin-top: 40px;">
-      <div id="checkout-resumen" class="neon-text" style="margin-bottom: 20px;">
-        <h3>Resumen del pedido:</h3>
-        <ul id="checkout-items"></ul>
-      </div>
-      <h2 class="neon-text">Finalizar Compra</h2>
-      <form id="checkout-form" class="neon-text" style="display: flex; flex-direction: column; gap: 15px; max-width: 400px;">
-        <label>
-          Nombre completo:
-          <input type="text" id="checkout-nombre" required class="neon-input" />
-        </label>
-
-        <label>
-          Dirección de envío:
-          <textarea id="direccion" rows="3" required class="neon-input"></textarea>
-        </label>
-
-        <label>
-          Método de pago:
-          <select id="metodo-pago" required class="neon-input">
-            <option value="">Seleccionar...</option>
-            <option value="tarjeta">Tarjeta de Crédito/Débito</option>
-            <option value="paypal">PayPal</option>
-            <option value="transferencia">Transferencia Bancaria</option>
-            <option value="contraentrega">Pago contra entrega</option>
-          </select>
-        </label>
-
-        <button type="submit" class="neon-btn">Confirmar Compra</button>
-      </form>
     </section>
 
-    <!-- Modal autenticación -->
-    <div id="auth-modal" class="modal neon-bg" style="display:none;">
-      <div class="modal-content neon-card">
-        <span id="close-modal" class="neon-text" style="font-size: 28px; cursor:pointer;">&times;</span>
-        <h2 class="neon-text">Inicia sesión o regístrate</h2>
-        <button id="google-login" class="neon-btn">Google</button>
-        <button id="facebook-login" class="neon-btn">Facebook</button>
-      </div>
-    </div>
+    <section id="mision">
+      <h2>Misión y Visión</h2>
+      <p><strong>Misión:</strong> Mi misión es ofrecer productos de buena calidad a las personas para que encuentren los productos perfectos para decorar su hogar.</p>
+      <p><strong>Visión:</strong> Ser la empresa más única y creativa y con productos de buena calidad para nuestros clientes.</p>
+    </section>
 
-    <!-- Botón para abrir carrito -->
-    <button id="open-cart-btn" class="neon-btn" style="position: fixed; top: 20px; right: 20px;">
-      Carrito (<span id="cart-count">0</span>)
-    </button>
+    <section id="privacidad">
+      <h2>Políticas de Privacidad</h2>
+      <p>No compartimos tu información personal con terceros.</p>
+    </section>
+
+    <section id="devoluciones">
+      <h2>Devoluciones</h2>
+      <p>Los clientes pueden solicitar la devolución de productos dentro de los 15 días posteriores a la compra, siempre que el producto esté en condiciones originales.</p>
+    </section>
+
+    <section id="contacto">
+      <h2>Contacto</h2>
+      <p>Email: sarioramirezevelin@gmail.com</p>
+    </section>
   </main>
 
-  <!-- Firebase y tu script -->
-  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
-  <script src="script.js"></script>
+  <!-- Carrito -->
+  <div id="cart" class="cart hidden">
+    <h3>Carrito</h3>
+    <ul id="cart-items"></ul>
+    <p>Total: $<span id="cart-total">0.00</span></p>
+    <button onclick="goToCheckout()">Pagar</button>
+    <button onclick="toggleCart()">Cerrar</button>
+  </div>
+
+  <!-- Sección de checkout -->
+  <div id="checkout-section" class="checkout-section hidden">
+    <h2>Checkout</h2>
+    <div id="checkout-products"></div>
+
+    <form id="checkout-form">
+      <label for="payment-method">Método de Pago:</label>
+      <select id="payment-method" required>
+        <option value="" disabled selected>Seleccione un método</option>
+        <option value="tarjeta">Tarjeta de Crédito/Débito</option>
+        <option value="paypal">PayPal</option>
+        <option value="efectivo">Efectivo</option>
+      </select>
+
+      <label for="address">Dirección de Envío:</label>
+      <textarea id="address" rows="3" placeholder="Ingresa tu dirección" required></textarea>
+
+      <p>Total a pagar: $<span id="checkout-total">0.00</span></p>
+
+      <button type="submit">Confirmar Pago</button>
+      <button type="button" onclick="cancelCheckout()">Cancelar</button>
+    </form>
+  </div>
+
+<script src="javascript.js"></script>
+
 </body>
 </html>
