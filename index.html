@@ -54,42 +54,8 @@
       <h2>Contacto</h2>
       <p>Email: sarioramirezevelin@gmail.com</p>
     </section>
-    </section>
-    <!-- Sección de checkout -->
-<section id="checkout-section" class="neon-card" style="display: none; padding: 30px; margin-top: 40px;">
-  <div id="checkout-resumen" class="neon-text" style="margin-bottom: 20px;">
-  <h3>Resumen del pedido:</h3>
-  <ul id="checkout-items"></ul>
-</div>
-
-  <h2 class="neon-text">Finalizar Compra</h2>
-  <form id="checkout-form" class="neon-text" style="display: flex; flex-direction: column; gap: 15px; max-width: 400px;">
-    <label>
-      Nombre completo:
-      <input type="text" id="checkout-nombre" required class="neon-input" />
-    </label>
-
-    <label>
-      Dirección de envío:
-      <textarea id="direccion" rows="3" required class="neon-input"></textarea>
-    </label>
-
-    <label>
-      Método de pago:
-      <select id="metodo-pago" required class="neon-input">
-        <option value="">Seleccionar...</option>
-        <option value="tarjeta">Tarjeta de Crédito/Débito</option>
-        <option value="paypal">PayPal</option>
-        <option value="transferencia">Transferencia Bancaria</option>
-        <option value="contraentrega">Pago contra entrega</option>
-      </select>
-    </label>
-
-    <button type="submit" class="neon-btn">Confirmar Compra</button>
-  </form>
-</section>
-
   </main>
+
   <!-- Carrito -->
   <div id="cart" class="cart hidden">
     <h3>Carrito</h3>
@@ -99,6 +65,29 @@
     <button onclick="toggleCart()">Cerrar</button>
   </div>
 
+  <!-- Sección de checkout -->
+  <div id="checkout-section" class="checkout-section hidden">
+    <h2>Checkout</h2>
+    <div id="checkout-products"></div>
+
+    <form id="checkout-form">
+      <label for="payment-method">Método de Pago:</label>
+      <select id="payment-method" required>
+        <option value="" disabled selected>Seleccione un método</option>
+        <option value="tarjeta">Tarjeta de Crédito/Débito</option>
+        <option value="paypal">PayPal</option>
+        <option value="efectivo">Efectivo</option>
+      </select>
+
+      <label for="address">Dirección de Envío:</label>
+      <textarea id="address" rows="3" placeholder="Ingresa tu dirección" required></textarea>
+
+      <p>Total a pagar: $<span id="checkout-total">0.00</span></p>
+
+      <button type="submit">Confirmar Pago</button>
+      <button type="button" onclick="cancelCheckout()">Cancelar</button>
+    </form>
+  </div>
 
 <script src="javascript.js"></script>
 
