@@ -3,93 +3,271 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Tu Espacio Online</title>
+  <title>FORGAMERSLINE</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
-  <!-- Firebase SDKs compatibles (compat) para facilidad -->
-  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
 </head>
 <body>
   <header>
-    <div class="logo">Tu Espacio Online</div>
-    <button class="hamburger" onclick="toggleMenu()">☰</button>
-    <nav id="menu" class="hidden">
-      <a href="#productos" onclick="toggleMenu()">Productos</a>
-      <a href="#mision" onclick="toggleMenu()">Misión y Visión</a>
-      <a href="#privacidad" onclick="toggleMenu()">Políticas de Privacidad</a>
-      <a href="#devoluciones" onclick="toggleMenu()">Devoluciones</a>
-      <a href="#contacto" onclick="toggleMenu()">Contacto</a>
-    </nav>
-    <div class="actions">
-      <button id="login-btn" onclick="signInWithGoogle()">Iniciar Sesión con Google</button>
-      <button onclick="toggleCart()">🛒 <span id="cart-count">0</span></button>
+    <div class="logo-container neon-text">
+      <img src="logo.png" alt="Logo FORGAMERSLINE" class="logo neon-glow" />
+      <p class="slogan neon-text">Vive rápido, juega sin miedo</p>
     </div>
+    <nav>
+      <button id="login-btn" class="neon-btn">Iniciar Sesión</button>
+      <button id="signup-btn" class="neon-btn">Registrarse</button>
+      <button id="cart-btn" class="neon-btn">🛒 Carrito (<span id="cart-count">0</span>)</button>
+      <button id="hamburger-btn" class="hamburger neon-btn">&#9776;</button>
+    </nav>
   </header>
+<aside class="sidebar neon-bg" id="sidebar">
+  <ul>
+    <li><a href="#videojuegos" class="neon-link">Videojuegos</a></li>
+    <li><a href="#consolas" class="neon-link">Consolas</a></li>
+    <li><a href="#controles" class="neon-link">Controles</a></li>
+    <li><a href="#figuras" class="neon-link">Figuras</a></li>
+    <li><a href="#mision-vision" class="neon-link">Misión y Visión</a></li>
+    <li><a href="#contacto" class="neon-link">Contacto</a></li>
+    <li><a href="#politicas" class="neon-link">Privacidad y Devoluciones</a></li>
+    <li><a href="#pagos-envios" class="neon-link">Pago y Envío</a></li>
+
+  </ul>
+</aside>
 
   <main>
-    <section id="productos">
-      <h1>Productos Destacados</h1>
-      <div class="product-list" id="product-list">
-        <!-- Productos generados por JS -->
+    <section id="videojuegos" class="productos">
+      <h2 class="neon-text">Videojuegos</h2>
+      <div class="producto neon-card" data-nombre="Minecraft" data-precio="60">
+        <img src="Minecraft.jpg" alt="Minecraft" class="producto-img neon-glow" />
+        <span class="neon-text">Minecraft - $60</span>
+        <button class="add-cart neon-btn">Agregar</button>
+      </div>
+      <div class="producto neon-card" data-nombre="Call of Duty 3 " data-precio="70">
+        <img src="Call Of Duty 3.webp" alt="Call of Duty 3 " class="producto-img neon-glow" />
+        <span class="neon-text">Call of Duty 3 - $70</span>
+        <button class="add-cart neon-btn">Agregar</button>
+      </div>
+      <div class="producto neon-card" data-nombre="Gears Of War 2 " data-precio="65">
+        <img src="Gears Of War 2.png" alt="Gears Of War 2" class="producto-img neon-glow" />
+        <span class="neon-text">Gears Of War 2 - $65</span>
+        <button class="add-cart neon-btn">Agregar</button>
       </div>
     </section>
 
-    <section id="mision">
-      <h2>Misión y Visión</h2>
-      <p><strong>Misión:</strong> Mi misión es ofrecer productos de buena calidad a las personas para que encuentren los productos perfectos para decorar su hogar.</p>
-      <p><strong>Visión:</strong> Ser la empresa más única y creativa y con productos de buena calidad para nuestros clientes.</p>
+    <section id="consolas" class="productos">
+      <h2 class="neon-text">Consolas</h2>
+      <div class="producto neon-card" data-nombre="PlayStation 5" data-precio="500">
+        <img src="ps5.jpg" alt="PlayStation 5" class="producto-img neon-glow" />
+        <span class="neon-text">PlayStation 5 - $500</span>
+        <button class="add-cart neon-btn">Agregar</button>
+      </div>
+      <div class="producto neon-card" data-nombre="Xbox Series X" data-precio="480">
+        <img src="Xbox Series X.jpg" alt="Xbox Series X" class="producto-img neon-glow" />
+        <span class="neon-text">Xbox Series X - $480</span>
+        <button class="add-cart neon-btn">Agregar</button>
+      </div>
     </section>
 
-    <section id="privacidad">
-      <h2>Políticas de Privacidad</h2>
-      <p>No compartimos tu información personal con terceros.</p>
+    <section id="controles" class="productos">
+      <h2 class="neon-text">Controles</h2>
+      <div class="producto neon-card" data-nombre="Control Xbox" data-precio="70">
+        <img src="control-xbox.jpg" alt="Control Xbox" class="producto-img neon-glow" />
+        <span class="neon-text">Control Xbox - $70</span>
+        <button class="add-cart neon-btn">Agregar</button>
+      </div>
+      <div class="producto neon-card" data-nombre="Control PS5" data-precio="75">
+        <img src="Control PS5.webp" alt="Control PS5" class="producto-img neon-glow" />
+        <span class="neon-text">Control PS5 - $75</span>
+        <button class="add-cart neon-btn">Agregar</button>
+      </div>
     </section>
 
-    <section id="devoluciones">
-      <h2>Devoluciones</h2>
-      <p>Los clientes pueden solicitar la devolución de productos dentro de los 15 días posteriores a la compra, siempre que el producto esté en condiciones originales.</p>
+    <section id="figuras" class="productos">
+      <h2 class="neon-text">Figuras</h2>
+      <div class="producto neon-card" data-nombre="Casco del Jefe Maestro" data-precio="40">
+        <img src="IMG_7492.png" alt="Casco Del Jefe Maestro" class="producto-img neon-glow" />
+        <span class="neon-text">Casco Del Jefe Maestro - $40</span>
+        <button class="add-cart neon-btn">Agregar</button>
+      </div>
+      <div class="producto neon-card" data-nombre="Figura Marcus Fenix" data-precio="45">
+        <img src="IMG_7493.png" alt="Figura Marcus Fenix" class="producto-img neon-glow" />
+        <span class="neon-text">Figura Marcus Fenix - $45</span>
+        <button class="add-cart neon-btn">Agregar</button>
+      </div>
     </section>
 
-    <section id="contacto">
-      <h2>Contacto</h2>
-      <p>Email: sarioramirezevelin@gmail.com</p>
+    <!-- Nueva sección Misión y Visión -->
+    <section id="mision-vision" class="productos neon-card" style="padding: 20px; margin-top: 40px;">
+      <h2 class="neon-text">Misión y Visión</h2>
+      <div class="mision-vision-text neon-text" style="margin-top: 10px;">
+        <h3>Misión</h3>
+        <p>
+          Misión De Forgamersline: "Llevar a los jugadores al siguiente nivel de entretenimiento en los videojuegos.
+        </p>
+        <h3>Visión</h3>
+        <p>
+         Visión DeForgamersline: "Un espacio donde los gamer puedan obtener lo que necesitan para disfrutar sus horas de entretenimiento al maximo
+        </p>
+      </div>
     </section>
-  </main>
 
-  <!-- Carrito -->
-  <div id="cart" class="cart hidden">
-    <h3>Carrito</h3>
-    <ul id="cart-items"></ul>
-    <p>Total: $<span id="cart-total">0.00</span></p>
-    <button onclick="goToCheckout()">Pagar</button>
-    <button onclick="toggleCart()">Cerrar</button>
-  </div>
+    <section id="contacto" class="neon-card" style="padding: 30px; margin-top: 40px;">
+  <h2 class="neon-text flame-text" data-text="Contacto">Contacto</h2>
 
-  <!-- Sección de checkout -->
-  <div id="checkout-section" class="checkout-section hidden">
-    <h2>Checkout</h2>
-    <div id="checkout-products"></div>
+  <p class="neon-text" style="margin-bottom: 20px;">
+    ¿Tienes dudas, sugerencias o quieres colaborar? Escríbeme a:
+    <br />
+    <a href="mailto:fredy.1998.777@gmail.com" class="neon-link">fredy.1998.777@gmail.com</a>
+  </p>
 
-    <form id="checkout-form">
-      <label for="payment-method">Método de Pago:</label>
-      <select id="payment-method" required>
-        <option value="" disabled selected>Seleccione un método</option>
+  <form class="contact-form">
+    <label for="nombre" class="neon-text">Nombre</label>
+    <input type="text" id="nombre" name="nombre" required />
+
+    <label for="email" class="neon-text">Correo Electrónico</label>
+    <input type="email" id="email" name="email" required />
+
+    <label for="mensaje" class="neon-text">Mensaje</label>
+    <textarea id="mensaje" name="mensaje" rows="5" required></textarea>
+
+    <button type="submit" class="neon-btn">Enviar</button>
+  </form>
+</section>
+    <section id="politicas" class="neon-card" style="padding: 30px; margin-top: 40px;">
+  <h2 class="neon-text flame-text" data-text="Políticas">Política de Privacidad y Devoluciones</h2>
+
+  <h3 class="neon-text" style="margin-top: 20px;">🔒 Política de Privacidad</h3>
+  <p class="neon-text" style="font-size: 1rem; line-height: 1.6;">
+    En FORGAMERSLINE respetamos tu privacidad. Los datos personales que nos proporciones, como nombre, correo electrónico y dirección, serán utilizados únicamente para procesar tus pedidos y mejorar tu experiencia.  
+    <br><br>
+    No compartimos tu información con terceros sin tu consentimiento. Puedes contactarnos en cualquier momento para consultar, modificar o eliminar tus datos personales.
+  </p>
+
+  <h3 class="neon-text" style="margin-top: 30px;">🔁 Política de Devoluciones</h3>
+  <p class="neon-text" style="font-size: 1rem; line-height: 1.6;">
+    Si tu producto llegó defectuoso o no es lo que esperabas, puedes solicitar una devolución dentro de los primeros 7 días después de recibirlo.  
+    <br><br>
+    El producto debe estar en su empaque original y sin uso. Para iniciar el proceso, contáctanos al correo:
+    <br>
+    <a href="mailto:fredy.1998.777@gmail.com" class="neon-link">fredy.1998.777@gmail.com</a>
+  </p>
+</section>
+<section id="pagos-envios" class="neon-card" style="padding: 30px; margin-top: 40px;">
+  <h2 class="neon-text flame-text" data-text="Pago y Envío">Métodos de Pago y Envío</h2>
+
+  <h3 class="neon-text" style="margin-top: 20px;">💳 Métodos de Pago</h3>
+  <p class="neon-text" style="font-size: 1rem; line-height: 1.6;">
+    En FORGAMERSLINE aceptamos diferentes métodos de pago para tu comodidad:
+    <ul class="neon-text" style="padding-left: 20px; list-style-type: disc;">
+      <li>Tarjetas de crédito y débito (Visa, MasterCard, American Express)</li>
+      <li>Pagos con PayPal</li>
+      <li>Transferencias bancarias</li>
+      <li>Pago contra entrega (solo en zonas habilitadas)</li>
+    </ul>
+  </p>
+
+  <h3 class="neon-text" style="margin-top: 30px;">🚚 Métodos de Envío</h3>
+  <p class="neon-text" style="font-size: 1rem; line-height: 1.6;">
+    Realizamos envíos a todo el país con las siguientes opciones:
+    <ul class="neon-text" style="padding-left: 20px; list-style-type: disc;">
+      <li>Envío estándar (3 a 7 días hábiles)</li>
+      <li>Envío express (24 a 48 horas)</li>
+      <li>Retiro en punto físico (cuando esté disponible)</li>
+    </ul>
+    <br>
+    Todos los pedidos son despachados con número de seguimiento. Los costos de envío se calculan al finalizar la compra.
+  </p>
+</section>
+<section id="checkout-section" class="neon-card" style="display: none; padding: 30px; margin-top: 40px;">
+  <div id="checkout-resumen" class="neon-text" style="margin-bottom: 20px;">
+  <h3>Resumen del pedido:</h3>
+  <ul id="checkout-items"></ul>
+</div>
+
+  <h2 class="neon-text">Finalizar Compra</h2>
+  <form id="checkout-form" class="neon-text" style="display: flex; flex-direction: column; gap: 15px; max-width: 400px;">
+    <label>
+      Nombre completo:
+      <input type="text" id="checkout-nombre" required class="neon-input" />
+    </label>
+
+    <label>
+      Dirección de envío:
+      <textarea id="direccion" rows="3" required class="neon-input"></textarea>
+    </label>
+
+    <label>
+      Método de pago:
+      <select id="metodo-pago" required class="neon-input">
+        <option value="">Seleccionar...</option>
         <option value="tarjeta">Tarjeta de Crédito/Débito</option>
         <option value="paypal">PayPal</option>
-        <option value="efectivo">Efectivo</option>
+        <option value="transferencia">Transferencia Bancaria</option>
+        <option value="contraentrega">Pago contra entrega</option>
       </select>
+    </label>
 
-      <label for="address">Dirección de Envío:</label>
-      <textarea id="address" rows="3" placeholder="Ingresa tu dirección" required></textarea>
+    <button type="submit" class="neon-btn">Confirmar Compra</button>
+  </form>
+</section>
 
-      <p>Total a pagar: $<span id="checkout-total">0.00</span></p>
+  </main>
 
-      <button type="submit">Confirmar Pago</button>
-      <button type="button" onclick="cancelCheckout()">Cancelar</button>
-    </form>
+  <!-- Modal de autenticación -->
+  <div id="auth-modal" class="modal neon-bg">
+    <div class="modal-content neon-card">
+      <span id="close-modal" class="neon-text" style="font-size: 28px;">&times;</span>
+      <h2 class="neon-text">Inicia sesión o regístrate</h2>
+      <button id="google-login" class="neon-btn">Google</button>
+      <button id="facebook-login" class="neon-btn">Facebook</button>
+    </div>
   </div>
 
-<script src="javascript.js"></script>
+  <!-- Modal del carrito -->
+  <div id="cart-modal" class="modal neon-bg">
+    <div class="modal-content neon-card">
+      <span id="close-cart" class="neon-text" style="font-size: 28px;">&times;</span>
+      <h2 class="neon-text">Carrito de Compras</h2>
+      <ul id="cart-items" class="neon-text"></ul>
+      <p class="neon-text">Total: $<span id="cart-total">0</span></p>
+      <button id="checkout-btn" class="neon-btn" style="margin-top: 10px;">Pagar</button>
+
+    </div>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+  <script src="script.js"></script>
+  <!-- Sección Checkout (inicialmente oculta) -->
+<section id="checkout-section" style="display:none; padding:20px; background: #121212; color: #eee; border: 2px solid #8a2be2; box-shadow: 0 0 10px #8a2be2; margin-top: 20px;">
+  <h2 style="text-align:center; text-shadow: 0 0 10px #8a2be2;">Checkout</h2>
+  
+  <ul id="checkout-items" style="list-style:none; padding:0; margin-bottom: 15px;"></ul>
+  
+  <p style="font-weight:bold; font-size: 1.2em; text-shadow: 0 0 8px #8a2be2;">
+    Total: $<span id="checkout-total">0</span>
+  </p>
+  
+  <form id="checkout-form" style="display:flex; flex-direction: column; gap: 12px; max-width: 400px; margin: 0 auto;">
+    <label for="checkout-nombre">Nombre:</label>
+    <input type="text" id="checkout-nombre" name="checkout-nombre" required style="padding: 8px; border-radius: 4px; border:none; box-shadow: 0 0 5px #8a2be2; background: #222; color: #eee;">
+    
+    <label for="direccion">Dirección:</label>
+    <input type="text" id="direccion" name="direccion" required style="padding: 8px; border-radius: 4px; border:none; box-shadow: 0 0 5px #8a2be2; background: #222; color: #eee;">
+    
+    <label for="metodo-pago">Método de pago:</label>
+    <select id="metodo-pago" name="metodo-pago" required style="padding: 8px; border-radius: 4px; border:none; box-shadow: 0 0 5px #8a2be2; background: #222; color: #eee;">
+      <option value="" disabled selected>Seleccione un método</option>
+      <option value="tarjeta">Tarjeta de crédito</option>
+      <option value="paypal">PayPal</option>
+      <option value="efectivo">Efectivo al recibir</option>
+    </select>
+    
+    <button type="submit" style="padding: 10px; border:none; border-radius: 6px; background: #8a2be2; color: white; font-weight: bold; cursor: pointer; text-shadow: 0 0 8px #8a2be2;">
+      Finalizar compra
+    </button>
+  </form>
+</section>
 
 </body>
 </html>
