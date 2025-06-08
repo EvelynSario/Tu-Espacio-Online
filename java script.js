@@ -1,13 +1,10 @@
-// Tu configuración Firebase aquí (reemplaza con la tuya)
 const firebaseConfig = {
-    apiKey: "AIzaSyBhIzR8YAM2QHYXFEHHQDiQkM4kSf-w2E4",
-    authDomain: "tu-espacio-online.firebaseapp.com",
-    projectId: "tu-espacio-online",
-    storageBucket: "tu-espacio-online.firebasestorage.app",
-    messagingSenderId: "74908938191",
-    appId: "1:74908938191:web:d0e78ba481550cff12ecba"
-  };
-  // resto de la config ...
+  apiKey: "AIzaSyBhIzR8YAM2QHYXFEHHQDiQkM4kSf-w2E4",
+  authDomain: "tu-espacio-online.firebaseapp.com",
+  projectId: "tu-espacio-online",
+  storageBucket: "tu-espacio-online.appspot.com",
+  messagingSenderId: "74908938191",
+  appId: "1:74908938191:web:d0e78ba481550cff12ecba"
 };
 
 firebase.initializeApp(firebaseConfig);
@@ -47,7 +44,6 @@ const loginBtn = document.getElementById("login-btn");
 
 let cart = [];
 
-// Renderiza productos en la página
 function renderProducts() {
   productList.innerHTML = "";
   products.forEach(product => {
@@ -64,7 +60,6 @@ function renderProducts() {
   });
 }
 
-// Agregar producto al carrito
 function addToCart(id) {
   const product = products.find(p => p.id === id);
   const item = cart.find(i => i.id === id);
@@ -72,18 +67,16 @@ function addToCart(id) {
   if (item) {
     item.quantity++;
   } else {
-    cart.push({...product, quantity: 1});
+    cart.push({ ...product, quantity: 1 });
   }
   updateCart();
 }
 
-// Eliminar producto del carrito
 function removeFromCart(id) {
   cart = cart.filter(item => item.id !== id);
   updateCart();
 }
 
-// Actualiza carrito y contador
 function updateCart() {
   cartItemsEl.innerHTML = "";
   let total = 0;
@@ -106,19 +99,16 @@ function updateCart() {
   }
 }
 
-// Mostrar / ocultar carrito
 function toggleCart() {
   cartEl.classList.toggle("hidden");
 }
 
-// Mostrar / ocultar menú
 function toggleMenu() {
   menuEl.classList.toggle("hidden");
 }
 
-// Checkout (pago simulado)
 function checkout() {
-  if(cart.length === 0) {
+  if (cart.length === 0) {
     alert("El carrito está vacío.");
     return;
   }
@@ -128,7 +118,6 @@ function checkout() {
   cartEl.classList.add("hidden");
 }
 
-// Iniciar sesión con Google
 function signInWithGoogle() {
   const provider = new firebase.auth.GoogleAuthProvider();
   auth.signInWithPopup(provider)
@@ -144,7 +133,6 @@ function signInWithGoogle() {
     });
 }
 
-// Cerrar sesión
 function signOut() {
   auth.signOut().then(() => {
     alert("Sesión cerrada.");
@@ -153,6 +141,5 @@ function signOut() {
   });
 }
 
-// Inicializar
 renderProducts();
 updateCart();
