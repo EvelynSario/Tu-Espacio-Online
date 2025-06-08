@@ -152,60 +152,7 @@ checkoutForm.addEventListener('submit', e => {
   updateCartUI();
   checkoutSection.classList.add('hidden');
 });
-/* Mostrar sección de checkout al dar clic en "Pagar" */
-document.getElementById("checkout-btn").addEventListener("click", () => {
-  if(carrito.length === 0) {
-    alert("Tu carrito está vacío.");
-    return;
-  }
-  document.getElementById("cart-modal").style.display = "none";
-  document.getElementById("checkout-section").style.display = "block";
 
-  // Calcular total
-  let suma = carrito.reduce((acc, item) => acc + item.precio, 0);
-  document.getElementById("checkout-total").textContent = suma.toFixed(2);
-
-  // Mostrar resumen de productos en el checkout
-  const checkoutItems = document.getElementById("checkout-items");
-  checkoutItems.innerHTML = "";
-  carrito.forEach(item => {
-    const li = document.createElement("li");
-    li.textContent = `${item.nombre} - $${item.precio.toFixed(2)}`;
-    checkoutItems.appendChild(li);
-  });
-
-  // Scroll al checkout
-  window.scrollTo({
-    top: document.getElementById("checkout-section").offsetTop,
-    behavior: "smooth"
-  });
-});
-
-/* Validar y procesar el formulario de checkout */
-document.getElementById("checkout-form").addEventListener("submit", (e) => {
-  e.preventDefault();
-  const nombre = document.getElementById("checkout-nombre").value.trim();
-  const direccion = document.getElementById("direccion").value.trim();
-  const metodo = document.getElementById("metodo-pago").value;
-
-  if (!nombre || !direccion || !metodo) {
-    alert("Por favor completa todos los campos.");
-    return;
-  }
-
-  alert("Gracias por tu compra, " + nombre + ". ¡Tu pedido está en camino!");
-  carrito = [];
-  actualizarCarrito();
-  actualizarEstadoPagar(); // Actualizar estado del botón pagar
-  document.getElementById("checkout-form").reset();
-  document.getElementById("checkout-section").style.display = "none";
-});
-
-/* Habilitar o deshabilitar botón pagar según contenido del carrito */
-const checkoutBtn = document.getElementById("checkout-btn");
-const actualizarEstadoPagar = () => {
-  checkoutBtn.disabled = carrito.length === 0;
-};
 // Toggle menú hamburguesa
 function toggleMenu() {
   const menu = document.getElementById('menu');
