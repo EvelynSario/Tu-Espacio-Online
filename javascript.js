@@ -24,6 +24,9 @@ const checkoutProductsEl = document.getElementById('checkout-products');
 const checkoutTotalEl = document.getElementById('checkout-total');
 const checkoutForm = document.getElementById('checkout-form');
 
+const hamburgerBtn = document.getElementById('hamburger');
+const navMenu = document.getElementById('menu');
+
 let cart = [];
 
 // Lista de productos (ejemplo con 8 productos)
@@ -37,8 +40,6 @@ const products = [
   { id: 7, name: "estanteria-de-madera", price: 1500, image: "img/estanteria-madera.jpg"},
   { id: 8, name: "cuadro-decorativo", price: 600, image: "img/cuadro-decorativo.jpg"},
 ];
-
-
 
 // Función para renderizar productos
 function renderProducts() {
@@ -155,11 +156,10 @@ checkoutForm.addEventListener('submit', e => {
   checkoutSection.classList.add('hidden');
 });
 
-// Toggle menú hamburguesa
-function toggleMenu() {
-  const menu = document.getElementById('menu');
-  menu.classList.toggle('hidden');
-}
+// Toggle menú hamburguesa (añade/quita clase show)
+hamburgerBtn.addEventListener('click', () => {
+  navMenu.classList.toggle('show');
+});
 
 // Login con Google
 function signInWithGoogle() {
@@ -182,3 +182,4 @@ window.onload = () => {
   renderProducts();
   updateCartUI();
 };
+
