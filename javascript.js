@@ -29,8 +29,8 @@ let cart = [];
 // Lista de productos (ejemplo con 8 productos)
 const products = [
   { id: 1, name: "Maceta", price: 1200, image:"img/maceta.jpg"},
-  { id: 2, name: "Espejo Circular", price: 2500, image: "img/Espejo-Circular.jpg"},
-  { id: 3, name: "Lámpara LED", price: 450, image: "img/Lámpara-LED.jpg"},
+  { id: 2, name: "Espejo Circular", price: 2500, image: "img/Espejo Circular.jpg"},
+  { id: 3, name: "Lámpara LED", price: 450, image: "img/Lámpara LED.jpg"},
   { id: 4, name: "Sofa Minimalista", price: 3500, image: "img/Sofa Minimalista.jpg"},
   { id: 5, name: "Mesa Minimalista", price: 800, image: "img/Mesa Minimalista.jpg"},
   { id: 6, name: "Alfombra Geométrica", price: 900, image: "img/Alfombra Geométrica.jpg"},
