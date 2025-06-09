@@ -5,24 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Mi Espacio Online</title>
   <link rel="stylesheet" href="style.css" />
-  <!-- Firebase SDKs compatibles (compat) para facilidad -->
   <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
 </head>
 <body>
   <header>
-    <div class="logo">Mi Espacio Online</div>
+    <div class="logo-container">
+      <img src="img/logo.jpg" alt="Logo Mi Espacio Online" class="logo-img" />
+      <span class="logo-text">Mi Espacio Online</span>
+    </div>
     <button class="hamburger" onclick="toggleMenu()">☰</button>
-  <nav id="menu" class="hidden">
-  <ul>
-    <li><a href="#productos">🛒 Productos</a></li>
-    <li><a href="#checkout-section">🧾 Checkout</a></li>
-    <li><a href="#privacidad">🛡️ Privacidad</a></li>
-    <li><a href="#metodos-pago">💳 Pago</a></li>
-    <li><a href="#envio">🚚 Envío</a></li>
-  </ul>
-</nav>
-
+    <nav id="menu" class="hidden">
+      <ul>
+        <li><a href="#productos">🛒 Productos</a></li>
+        <li><a href="#checkout-section">🧾 Checkout</a></li>
+        <li><a href="#privacidad">🛡️ Privacidad</a></li>
+        <li><a href="#metodos-pago">💳 Pago</a></li>
+        <li><a href="#envio">🚚 Envío</a></li>
+        <li><a href="#contacto">📩 Contacto</a></li>
+      </ul>
+    </nav>
     <div class="actions">
       <button id="login-btn" onclick="signInWithGoogle()">Iniciar Sesión con Google</button>
       <button onclick="toggleCart()">🛒 <span id="cart-count">0</span></button>
@@ -32,9 +34,7 @@
   <main>
     <section id="productos">
       <h1>Productos Destacados</h1>
-      <div class="product-list" id="product-list">
-        <!-- Productos generados por JS -->
-      </div>
+      <div class="product-list" id="product-list"></div>
     </section>
 
     <section id="mision">
@@ -44,20 +44,15 @@
     </section>
 
     <section id="privacidad" class="info-section">
-  <h2>Políticas de Privacidad</h2>
-  <p>
-    En <strong>Mi Espacio Online</strong>, valoramos y respetamos tu privacidad. Toda la información personal que recopilemos será utilizada exclusivamente para procesar pedidos y mejorar tu experiencia de compra.
-  </p>
-  <ul>
-    <li>No compartimos tu información con terceros sin tu consentimiento.</li>
-    <li>Utilizamos tecnologías seguras para proteger tus datos personales.</li>
-    <li>Puedes solicitar la modificación o eliminación de tus datos en cualquier momento.</li>
-  </ul>
-  <p>
-    Si tienes dudas o deseas más información, puedes contactarnos a través del formulario de contacto.
-  </p>
-</section>
-
+      <h2>Políticas de Privacidad</h2>
+      <p>En <strong>Mi Espacio Online</strong>, valoramos y respetamos tu privacidad. Toda la información personal que recopilemos será utilizada exclusivamente para procesar pedidos y mejorar tu experiencia de compra.</p>
+      <ul>
+        <li>No compartimos tu información con terceros sin tu consentimiento.</li>
+        <li>Utilizamos tecnologías seguras para proteger tus datos personales.</li>
+        <li>Puedes solicitar la modificación o eliminación de tus datos en cualquier momento.</li>
+      </ul>
+      <p>Si tienes dudas o deseas más información, puedes contactarnos a través del formulario de contacto.</p>
+    </section>
 
     <section id="devoluciones">
       <h2>Devoluciones</h2>
@@ -65,46 +60,45 @@
     </section>
 
     <section id="metodos-pago" class="info-section">
-  <h2>Métodos de Pago</h2>
-  <p>En <strong>Mi Espacio Online</strong> aceptamos los siguientes métodos de pago seguros:</p>
-  <ul>
-    <li>💳 Tarjetas de crédito y débito (Visa, MasterCard, American Express)</li>
-    <li>🏦 Transferencia bancaria</li>
-    <li>📱 Pagos móviles (Mercado Pago, Ualá)</li>
-    <li>🧾 Pago contra entrega (en ciertas ubicaciones)</li>
-  </ul>
-</section>
-   <section id="envio" class="info-section">
-  <h2>Opciones de Envío</h2>
-  <p>Ofrecemos distintas opciones de envío para que elijas la que más te convenga:</p>
-  <ul>
-    <li>📦 Envío estándar (3 a 7 días hábiles)</li>
-    <li>🚀 Envío exprés (24 a 48 horas)</li>
-    <li>🏠 Retiro en tienda (gratis)</li>
-  </ul>
-  <p>Los costos de envío se calculan automáticamente al finalizar la compra.</p>
-</section>
-<section id="contacto" class="section">
-  <h2>Contacto</h2>
-  <form id="form-contacto">
-    <label for="nombre">Nombre:</label>
-    <input type="text" id="nombre" name="nombre" required>
+      <h2>Métodos de Pago</h2>
+      <p>En <strong>Mi Espacio Online</strong> aceptamos los siguientes métodos de pago seguros:</p>
+      <ul>
+        <li>💳 Tarjetas de crédito y débito (Visa, MasterCard, American Express)</li>
+        <li>🏦 Transferencia bancaria</li>
+        <li>📱 Pagos móviles (Mercado Pago, Ualá)</li>
+        <li>🧾 Pago contra entrega (en ciertas ubicaciones)</li>
+      </ul>
+    </section>
 
-    <label for="correo">Correo electrónico:</label>
-    <input type="email" id="correo" name="correo" required>
+    <section id="envio" class="info-section">
+      <h2>Opciones de Envío</h2>
+      <p>Ofrecemos distintas opciones de envío para que elijas la que más te convenga:</p>
+      <ul>
+        <li>📦 Envío estándar (3 a 7 días hábiles)</li>
+        <li>🚀 Envío exprés (24 a 48 horas)</li>
+        <li>🏠 Retiro en tienda (gratis)</li>
+      </ul>
+      <p>Los costos de envío se calculan automáticamente al finalizar la compra.</p>
+    </section>
 
-    <label for="mensaje">Mensaje:</label>
-    <textarea id="mensaje" name="mensaje" required></textarea>
+    <section id="contacto" class="section">
+      <h2>Contacto</h2>
+      <form id="form-contacto">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required>
 
-    <button type="submit">Enviar mensaje</button>
-  </form>
-  <p id="respuesta-contacto" style="margin-top: 10px; display: none;"></p>
-</section>
+        <label for="correo">Correo electrónico:</label>
+        <input type="email" id="correo" name="correo" required>
 
+        <label for="mensaje">Mensaje:</label>
+        <textarea id="mensaje" name="mensaje" required></textarea>
 
+        <button type="submit">Enviar mensaje</button>
+      </form>
+      <p id="respuesta-contacto" style="margin-top: 10px; display: none;"></p>
+    </section>
   </main>
 
-  <!-- Carrito -->
   <div id="cart" class="cart hidden">
     <h3>Carrito</h3>
     <ul id="cart-items"></ul>
@@ -113,7 +107,6 @@
     <button onclick="toggleCart()">Cerrar</button>
   </div>
 
-  <!-- Sección de checkout -->
   <div id="checkout-section" class="checkout-section hidden">
     <h2>Checkout</h2>
     <div id="checkout-products"></div>
@@ -137,7 +130,16 @@
     </form>
   </div>
 
-<script src="javascript.js"></script>
-
+  <script src="javascript.js"></script>
+  <script>
+    document.getElementById("form-contacto").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const nombre = document.getElementById("nombre").value;
+      const mensajeEl = document.getElementById("respuesta-contacto");
+      mensajeEl.style.display = "block";
+      mensajeEl.textContent = `Gracias, ${nombre}. Tu mensaje ha sido enviado correctamente (simulado).`;
+      this.reset();
+    });
+  </script>
 </body>
 </html>
