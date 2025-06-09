@@ -28,14 +28,14 @@ let cart = [];
 
 // Lista de productos (ejemplo con 8 productos)
 const products = [
-  { id: 1, name: "Silla Gamer", price: 1200, image: "https://i.ibb.co/W6r4Jtp/silla-gamer.png" },
-  { id: 2, name: "Escritorio Moderno", price: 2500, image: "https://i.ibb.co/RH6dNrZ/escritorio-moderno.png" },
-  { id: 3, name: "Lámpara LED", price: 450, image: "https://i.ibb.co/2sjH4Jq/lampara-led.png" },
-  { id: 4, name: "Sofá Minimalista", price: 3500, image: "https://i.ibb.co/n0TbDXp/sofa-minimalista.png" },
-  { id: 5, name: "Mesa Auxiliar", price: 800, image: "https://i.ibb.co/wW4T9ZJ/mesa-auxiliar.png" },
-  { id: 6, name: "Alfombra Geométrica", price: 900, image: "https://i.ibb.co/8xq0sLn/alfombra.png" },
-  { id: 7, name: "Estantería de Madera", price: 1500, image: "https://i.ibb.co/YyR8B03/estanteria.png" },
-  { id: 8, name: "Cuadro Decorativo", price: 600, image: "https://i.ibb.co/jJ1RY2q/cuadro.png" },
+  { id: 1, name: "Maceta", price: 1200, image:"img/maceta.jpg"},
+  { id: 2, name: "Espejo Circular", price: 2500, image: "img/Espejo-Circular.jpg"},
+  { id: 3, name: "Lámpara LED", price: 450, image: "img/Lámpara-LED.jpg"},
+  { id: 4, name: "Sofa Minimalista", price: 3500, image: "img/Sofa Minimalista.jpg"},
+  { id: 5, name: "Mesa Minimalista", price: 800, image: "img/Mesa Minimalista.jpg"},
+  { id: 6, name: "Alfombra Geométrica", price: 900, image: "img/Alfombra Geométrica.jpg"},
+  { id: 7, name: "Estantería de Madera", price: 1500, image: "img/Estantería de Madera.jpg"},
+  { id: 8, name: "Cuadro Decorativo", price: 600, image: "img/Cuadro Decorativo.jpg"},,
 ];
 
 // Función para renderizar productos
