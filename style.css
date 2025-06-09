@@ -45,18 +45,15 @@ header {
   font-weight: bold;
 }
 
-.hamburger {
-  font-size: 2rem;
+#hamburger-btn {
+  display: none;
+  font-size: 26px;
   background: none;
   border: none;
   color: white;
   cursor: pointer;
-  display: none; /* oculto por defecto */
-  padding: 0;
-  margin: 0;
-  user-select: none;
+  padding: 0 10px;
 }
-
 /* Mostrar botón hamburguesa solo en pantallas pequeñas */
 @media (max-width: 768px) {
   .hamburger {
