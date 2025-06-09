@@ -39,6 +39,7 @@ const products = [
 ];
 
 
+
 // Función para renderizar productos
 function renderProducts() {
   productListEl.innerHTML = '';
