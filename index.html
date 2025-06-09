@@ -89,10 +89,10 @@
       <h2>Contacto</h2>
       <form id="form-contacto">
         <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" required>
+        <input type="text" id="nombre" name="nombre" required />
 
         <label for="correo">Correo electrónico:</label>
-        <input type="email" id="correo" name="correo" required>
+        <input type="email" id="correo" name="correo" required />
 
         <label for="mensaje">Mensaje:</label>
         <textarea id="mensaje" name="mensaje" required></textarea>
@@ -135,7 +135,6 @@
   </div>
 
   <script src="javascript.js"></script>
-
   <script>
     document.getElementById("form-contacto").addEventListener("submit", function (e) {
       e.preventDefault();
@@ -147,14 +146,14 @@
     });
   </script>
 
-  <!-- Script corregido para el botón hamburguesa -->
+  <!-- Script corregido para botón hamburguesa -->
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       const hamburgerBtn = document.getElementById('hamburger-btn');
-      const nav = document.querySelector('nav');
+      const menu = document.getElementById('menu');
 
       hamburgerBtn.addEventListener('click', () => {
-        nav.classList.toggle('active');
+        menu.classList.toggle('hidden');
       });
     });
   </script>
