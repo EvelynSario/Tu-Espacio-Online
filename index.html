@@ -13,13 +13,16 @@
   <header>
     <div class="logo">Tu Espacio Online</div>
     <button class="hamburger" onclick="toggleMenu()">☰</button>
-    <nav id="menu" class="hidden">
-      <a href="#productos" onclick="toggleMenu()">Productos</a>
-      <a href="#mision" onclick="toggleMenu()">Misión y Visión</a>
-      <a href="#privacidad" onclick="toggleMenu()">Políticas de Privacidad</a>
-      <a href="#devoluciones" onclick="toggleMenu()">Devoluciones</a>
-      <a href="#contacto" onclick="toggleMenu()">Contacto</a>
-    </nav>
+  <nav id="menu" class="hidden">
+  <ul>
+    <li><a href="#productos">🛒 Productos</a></li>
+    <li><a href="#checkout-section">🧾 Checkout</a></li>
+    <li><a href="#privacidad">🛡️ Privacidad</a></li>
+    <li><a href="#metodos-pago">💳 Pago</a></li>
+    <li><a href="#envio">🚚 Envío</a></li>
+  </ul>
+</nav>
+
     <div class="actions">
       <button id="login-btn" onclick="signInWithGoogle()">Iniciar Sesión con Google</button>
       <button onclick="toggleCart()">🛒 <span id="cart-count">0</span></button>
