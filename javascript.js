@@ -29,14 +29,15 @@ let cart = [];
 // Lista de productos (ejemplo con 8 productos)
 const products = [
   { id: 1, name: "Maceta", price: 1200, image:"img/maceta.jpg"},
-  { id: 2, name: "Espejo Circular", price: 2500, image: "img/Espejo Circular.jpg"},
-  { id: 3, name: "Lámpara LED", price: 450, image: "img/Lámpara LED.jpg"},
-  { id: 4, name: "Sofa Minimalista", price: 3500, image: "img/Sofa Minimalista.jpg"},
-  { id: 5, name: "Mesa Minimalista", price: 800, image: "img/Mesa Minimalista.jpg"},
-  { id: 6, name: "Alfombra Geométrica", price: 900, image: "img/Alfombra Geométrica.jpg"},
-  { id: 7, name: "Estantería de Madera", price: 1500, image: "img/Estantería de Madera.jpg"},
-  { id: 8, name: "Cuadro Decorativo", price: 600, image: "img/Cuadro Decorativo.jpg"},
+  { id: 2, name: "Espejo Circular", price: 2500, image: "img/espejo-circular.jpg"},
+  { id: 3, name: "Lámpara LED", price: 450, image: "img/lampara-led.jpg"},
+  { id: 4, name: "Sofa Minimalista", price: 3500, image: "img/sofa-minimalista.jpg"},
+  { id: 5, name: "Mesa Minimalista", price: 800, image: "img/mesa-minimalista.jpg"},
+  { id: 6, name: "Alfombra Geométrica", price: 900, image: "img/alfombra-geometrica.jpg"},
+  { id: 7, name: "Estantería de Madera", price: 1500, image: "img/estanteria-madera.jpg"},
+  { id: 8, name: "Cuadro Decorativo", price: 600, image: "img/cuadro-decorativo.jpg"},
 ];
+
 
 // Función para renderizar productos
 function renderProducts() {
