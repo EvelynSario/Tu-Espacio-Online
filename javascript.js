@@ -158,12 +158,9 @@ checkoutForm.addEventListener('submit', e => {
 
 // Toggle menú hamburguesa
 function toggleMenu() {
-  const hamburgerBtn = document.getElementById('hamburger-btn');
-const menu = document.getElementById('menu'); // Selecciona el menú con id 'menu'
-
-hamburgerBtn.addEventListener('click', () => {
-  menu.classList.toggle('hidden'); // Alterna la clase 'hidden' para mostrar/ocultar
-});
+  const menu = document.getElementById('menu');
+  menu.classList.toggle('hidden');
+}
 
 // Login con Google
 function signInWithGoogle() {
