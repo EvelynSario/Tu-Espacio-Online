@@ -14,17 +14,21 @@
       <img src="img/logo.jpg" alt="Logo Mi Espacio Online" class="logo-img" />
       <span class="logo-text">Mi Espacio Online</span>
     </div>
-    <button class="hamburger" onclick="toggleMenu()">☰</button>
-    <nav id="menu" class="hidden">
-      <ul>
-        <li><a href="#productos">🛒 Productos</a></li>
-        <li><a href="#checkout-section">🧾 Checkout</a></li>
-        <li><a href="#privacidad">🛡️ Privacidad</a></li>
-        <li><a href="#metodos-pago">💳 Pago</a></li>
-        <li><a href="#envio">🚚 Envío</a></li>
-        <li><a href="#contacto">📩 Contacto</a></li>
-      </ul>
-    </nav>
+    <!-- Botón hamburguesa corregido con id -->
+<button id="hamburger-btn" class="hamburger">☰</button>
+
+<!-- Menú con clase específica -->
+<nav id="menu" class="nav-links hidden">
+  <ul>
+    <li><a href="#productos">🛒 Productos</a></li>
+    <li><a href="#checkout-section">🧾 Checkout</a></li>
+    <li><a href="#privacidad">🛡️ Privacidad</a></li>
+    <li><a href="#metodos-pago">💳 Pago</a></li>
+    <li><a href="#envio">🚚 Envío</a></li>
+    <li><a href="#contacto">📩 Contacto</a></li>
+  </ul>
+</nav>
+
     <div class="actions">
       <button id="login-btn" onclick="signInWithGoogle()">Iniciar Sesión con Google</button>
       <button onclick="toggleCart()">🛒 <span id="cart-count">0</span></button>
