@@ -141,5 +141,16 @@
       this.reset();
     });
   </script>
+  <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const hamburgerBtn = document.getElementById('hamburger-btn');
+    const nav = document.querySelector('nav');
+
+    hamburgerBtn.addEventListener('click', () => {
+      nav.classList.toggle('active');
+    });
+  });
+</script>
+
 </body>
 </html>
