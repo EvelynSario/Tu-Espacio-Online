@@ -4,92 +4,61 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Tu Espacio Online</title>
-  <link rel="stylesheet" href="style.css" />
-  <!-- Firebase SDKs compatibles (compat) para facilidad -->
-  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
 </head>
 <body>
-  <header>
-    <div class="logo">Tu Espacio Online</div>
-    <button class="hamburger" onclick="toggleMenu()">☰</button>
+
+<header>
+  <div class="container">
+    <h1>Tu Espacio Online</h1>
+    <button id="hamburger" aria-label="Abrir menú">&#9776;</button>
     <nav id="menu" class="hidden">
-      <a href="#productos" onclick="toggleMenu()">Productos</a>
-      <a href="#mision" onclick="toggleMenu()">Misión y Visión</a>
-      <a href="#privacidad" onclick="toggleMenu()">Políticas de Privacidad</a>
-      <a href="#devoluciones" onclick="toggleMenu()">Devoluciones</a>
-      <a href="#contacto" onclick="toggleMenu()">Contacto</a>
+      <a href="#products">Productos</a>
+      <a href="#cart" onclick="toggleCart()">Carrito <span id="cart-count">0</span></a>
+      <a href="#checkout-section" onclick="goToCheckout()">Checkout</a>
+      <button id="login-btn" onclick="signInWithGoogle()">Iniciar sesión con Google</button>
     </nav>
-    <div class="actions">
-      <button id="login-btn" onclick="signInWithGoogle()">Iniciar Sesión con Google</button>
-      <button onclick="toggleCart()">🛒 <span id="cart-count">0</span></button>
-    </div>
-  </header>
+  </div>
+</header>
 
-  <main>
-    <section id="productos">
-      <h1>Productos Destacados</h1>
-      <div class="product-list" id="product-list">
-        <!-- Productos generados por JS -->
-      </div>
-    </section>
+<main>
+  <section id="products" class="container">
+    <h2>Productos</h2>
+    <div id="product-list" class="product-list"></div>
+  </section>
 
-    <section id="mision">
-      <h2>Misión y Visión</h2>
-      <p><strong>Misión:</strong> Mi misión es ofrecer productos de buena calidad a las personas para que encuentren los productos perfectos para decorar su hogar.</p>
-      <p><strong>Visión:</strong> Ser la empresa más única y creativa y con productos de buena calidad para nuestros clientes.</p>
-    </section>
-
-    <section id="privacidad">
-      <h2>Políticas de Privacidad</h2>
-      <p>No compartimos tu información personal con terceros.</p>
-    </section>
-
-    <section id="devoluciones">
-      <h2>Devoluciones</h2>
-      <p>Los clientes pueden solicitar la devolución de productos dentro de los 15 días posteriores a la compra, siempre que el producto esté en condiciones originales.</p>
-    </section>
-
-    <section id="contacto">
-      <h2>Contacto</h2>
-      <p>Email: sarioramirezevelin@gmail.com</p>
-    </section>
-  </main>
-
-  <!-- Carrito -->
-  <div id="cart" class="cart hidden">
-    <h3>Carrito</h3>
+  <section id="cart" class="container hidden">
+    <h2>Carrito de Compras</h2>
     <ul id="cart-items"></ul>
     <p>Total: $<span id="cart-total">0.00</span></p>
-    <button onclick="goToCheckout()">Pagar</button>
-    <button onclick="toggleCart()">Cerrar</button>
-  </div>
+    <button onclick="goToCheckout()">Finalizar Compra</button>
+    <button onclick="toggleCart()">Cerrar Carrito</button>
+  </section>
 
-  <!-- Sección de checkout -->
-  <div id="checkout-section" class="checkout-section hidden">
+  <section id="checkout-section" class="container hidden">
     <h2>Checkout</h2>
     <div id="checkout-products"></div>
-
+    <p>Total a pagar: $<span id="checkout-total">0.00</span></p>
     <form id="checkout-form">
-      <label for="payment-method">Método de Pago:</label>
+      <label for="payment-method">Método de pago:</label>
       <select id="payment-method" required>
-        <option value="" disabled selected>Seleccione un método</option>
-        <option value="tarjeta">Tarjeta de Crédito/Débito</option>
-        <option value="paypal">PayPal</option>
-        <option value="efectivo">Efectivo</option>
+        <option value="" disabled selected>Seleccione...</option>
+        <option value="Tarjeta de crédito">Tarjeta de crédito</option>
+        <option value="PayPal">PayPal</option>
+        <option value="Transferencia bancaria">Transferencia bancaria</option>
       </select>
 
-      <label for="address">Dirección de Envío:</label>
-      <textarea id="address" rows="3" placeholder="Ingresa tu dirección" required></textarea>
+      <label for="address">Dirección de envío:</label>
+      <input type="text" id="address" required />
 
-      <p>Total a pagar: $<span id="checkout-total">0.00</span></p>
-
-      <button type="submit">Confirmar Pago</button>
+      <button type="submit">Pagar</button>
       <button type="button" onclick="cancelCheckout()">Cancelar</button>
     </form>
-  </div>
+  </section>
+</main>
 
-<script src="javascript.js"></script>
-
+<script src="script.js"></script>
 </body>
 </html>
