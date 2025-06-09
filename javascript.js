@@ -33,8 +33,8 @@ const products = [
   { id: 3, name: "lampara-led", price: 450, image: "img/lampara-led.jpg"},
   { id: 4, name: "sofa-minimalista", price: 3500, image: "img/sofa-minimalista.jpg"},
   { id: 5, name: "mesa-minimalista", price: 800, image: "img/mesa-minimalista.jpg"},
-  { id: 6, name: "alfombra-geométrica", price: 900, image: "img/alfombra-geometrica.jpg"},
-  { id: 7, name: "estantería-de-madera", price: 1500, image: "img/estanteria-madera.jpg"},
+  { id: 6, name: "alfombra-geometrica", price: 900, image: "img/alfombra-geometrica.jpg"},
+  { id: 7, name: "estanteria-de-madera", price: 1500, image: "img/estanteria-madera.jpg"},
   { id: 8, name: "cuadro-decorativo", price: 600, image: "img/cuadro-decorativo.jpg"},
 ];
 
