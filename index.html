@@ -15,19 +15,19 @@
       <span class="logo-text">Mi Espacio Online</span>
     </div>
     <!-- Botón hamburguesa corregido con id -->
-<button id="hamburger-btn" class="hamburger">☰</button>
+    <button id="hamburger-btn" class="hamburger">☰</button>
 
-<!-- Menú con clase específica -->
-<nav id="menu" class="nav-links hidden">
-  <ul>
-    <li><a href="#productos">🛒 Productos</a></li>
-    <li><a href="#checkout-section">🧾 Checkout</a></li>
-    <li><a href="#privacidad">🛡️ Privacidad</a></li>
-    <li><a href="#metodos-pago">💳 Pago</a></li>
-    <li><a href="#envio">🚚 Envío</a></li>
-    <li><a href="#contacto">📩 Contacto</a></li>
-  </ul>
-</nav>
+    <!-- Menú con clase específica -->
+    <nav id="menu" class="nav-links hidden">
+      <ul>
+        <li><a href="#productos">🛒 Productos</a></li>
+        <li><a href="#checkout-section">🧾 Checkout</a></li>
+        <li><a href="#privacidad">🛡️ Privacidad</a></li>
+        <li><a href="#metodos-pago">💳 Pago</a></li>
+        <li><a href="#envio">🚚 Envío</a></li>
+        <li><a href="#contacto">📩 Contacto</a></li>
+      </ul>
+    </nav>
 
     <div class="actions">
       <button id="login-btn" onclick="signInWithGoogle()">Iniciar Sesión con Google</button>
@@ -135,6 +135,7 @@
   </div>
 
   <script src="javascript.js"></script>
+
   <script>
     document.getElementById("form-contacto").addEventListener("submit", function (e) {
       e.preventDefault();
@@ -145,16 +146,17 @@
       this.reset();
     });
   </script>
+
+  <!-- Script corregido para el botón hamburguesa -->
   <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const hamburgerBtn = document.getElementById('hamburger-btn');
-    const nav = document.querySelector('nav');
+    document.addEventListener('DOMContentLoaded', function () {
+      const hamburgerBtn = document.getElementById('hamburger-btn');
+      const nav = document.querySelector('nav');
 
-    hamburgerBtn.addEventListener('click', () => {
-      nav.classList.toggle('active');
+      hamburgerBtn.addEventListener('click', () => {
+        nav.classList.toggle('active');
+      });
     });
-  });
-</script>
-
+  </script>
 </body>
 </html>
