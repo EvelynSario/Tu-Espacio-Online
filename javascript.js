@@ -35,7 +35,7 @@ const products = [
   { id: 5, name: "Mesa Minimalista", price: 800, image: "img/Mesa Minimalista.jpg"},
   { id: 6, name: "Alfombra Geométrica", price: 900, image: "img/Alfombra Geométrica.jpg"},
   { id: 7, name: "Estantería de Madera", price: 1500, image: "img/Estantería de Madera.jpg"},
-  { id: 8, name: "Cuadro Decorativo", price: 600, image: "img/Cuadro Decorativo.jpg"},,
+  { id: 8, name: "Cuadro Decorativo", price: 600, image: "img/Cuadro Decorativo.jpg"},
 ];
 
 // Función para renderizar productos
