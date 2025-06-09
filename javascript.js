@@ -177,6 +177,29 @@ function signInWithGoogle() {
       alert('Error al iniciar sesión. Inténtalo de nuevo.');
     });
 }
+// Simular envío del formulario de contacto
+document.getElementById('form-contacto').addEventListener('submit', function (e) {
+  e.preventDefault();
+
+  const nombre = document.getElementById('nombre').value.trim();
+  const correo = document.getElementById('correo').value.trim();
+  const mensaje = document.getElementById('mensaje').value.trim();
+  const respuesta = document.getElementById('respuesta-contacto');
+
+  if (!nombre || !correo || !mensaje) {
+    respuesta.textContent = 'Por favor, complete todos los campos.';
+    respuesta.style.color = 'red';
+    respuesta.style.display = 'block';
+    return;
+  }
+
+  respuesta.textContent = `¡Gracias ${nombre}! Tu mensaje ha sido enviado correctamente.`;
+  respuesta.style.color = 'green';
+  respuesta.style.display = 'block';
+
+  // Limpiar campos del formulario
+  this.reset();
+});
 
 // Al cargar la página:
 window.onload = () => {
